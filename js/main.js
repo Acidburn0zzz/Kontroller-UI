@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Custom structure to represent the structure of
 // the app and it's various links/pages/routes and
 // to help with generating the templates/marking
@@ -109,5 +110,3 @@ var AppRouter = Backbone.Router.extend({
 
 var appRouter = new AppRouter();
 Backbone.history.start();
-
-
