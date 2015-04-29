@@ -1,85 +1,55 @@
-<<<<<<< HEAD
-// Custom structure to represent the structure of
-// the app and it's various links/pages/routes and
-// to help with generating the templates/marking
-// menu items as active, etc...
+Handlebars.registerPartial('kaboomRunningConfigForm', $("#kaboomRunningConfigForm").html());
 
-var AppMenu = AppMenu || {};
-
-AppMenu.activeClassName = 'active';
-AppMenu.inactiveClassName = '';
-AppMenu.menuItemIdPrefix = '#headerMenu_'; //Includes the prefix # for jQuery DOM access
-AppMenu.activeItems = [];
-
-AppMenu.menuItems = [
-    {'link': "", 'title': "Kontroller"},
-    {'link': "kafka", 'title': "Kafka"},
-    {'link': "kaboom", 'title': "KaBoom", 'subMenu': [
-        {'link': "kaboom-config", 'title': "Running Config"},
-        {'link': "kaboom-topics", 'title': "Topics"},
-        {'link': "kaboom-assignments", 'title': "Assignments"}
-    ]}
-];
-
-AppMenu.refresh = function(newActiveItems) {
-    AppMenu.activeItems.forEach(function (prevItem) {
-        $(AppMenu.menuItemIdPrefix + prevItem).removeClass(AppMenu.activeClassName);
-    });
-    newActiveItems.forEach(function (activeItem) {
-        $(AppMenu.menuItemIdPrefix + activeItem).addClass(AppMenu.activeClassName);
-    });
-    AppMenu.activeItems = newActiveItems;
-};
-
-var headerTemplate = Handlebars.compile($("#header-nav-bar").html());
-$("#header").html(headerTemplate(AppMenu));
-console.log($("#header").html());
-
-var HomeView = Backbone.View.extend({
-    menuItems: [''],
-    template: Handlebars.compile($("#home-template").html()),
-    initialize: function () {
-        this.render();
-    },
-    render: function () {
-        this.$el.html(this.template({greeting: "Welcome to kontroller, this is highly unusable"}));
+Handlebars.registerHelper('checkedBoxFromBool', function(bool) {
+    if (bool == true) {
+        return "checked"
     }
 });
 
-var KaBoomView = Backbone.View.extend({
-    menuItems: ['kaboom'],
-    template: Handlebars.compile($("#kaboom-template").html()),
-    initialize: function () {
-        this.render();
-    },
-    render: function () {
-        this.$el.html(this.template({content: "kaboom is a custom component that takes writes events from kafka to hdfs"}));
-    }
-});
+/*
+var oldSaveFunction = Backbone.Model.prototype.save;
+Backbone.Model.prototype.save = function() {
+    var returnedValue = oldSaveFunction.apply(this, arguments),
+        deferred = new $.Deferred();
 
-var KaBoomConfigView = Backbone.View.extend({
-    menuItems: ['kaboom', 'kaboom-config'],
-    template: Handlebars.compile($("#kaboom-config-template").html()),
-    initialize: function () {
-        this.render();
-    },
-    render: function () {
-        this.$el.html(this.template({content: "This is the place where you configure kaboom"}));
+    if(_.isBoolean(returnedValue)) {
+        deferred.reject();
+        return deferred.promise();
     }
-});
 
-var KafkaView = Backbone.View.extend({
-    menuItems: ['kafka'],
-    template: Handlebars.compile($("#kafka-template").html()),
-    initialize: function () {
-        this.render();
-    },
-    render: function () {
-        this.$el.html(this.template({content: "kafka is a great event ingest technology"}));
+    return returnedValue;
+}*/
+
+
+/*
+ * The view manager has a single function, loadView(), that accepts an
+ * element ID as well as a function that instantiates the view.  Note
+ * that newElementId must not contain the # prefix as it's created
+ * with vanilla javascript whereas the element Id used for the 'el'
+ * attribute when instantiating the view must be prefixed with # as
+ * Backbone.View requires it.
+ *
+ * loadView() removes any existing views which un-registers any event
+ * bindings, and removes the view's element from the DOM.  It then
+ * creates a new element inside the content div, sets the id for the
+ * to-be-created view, and sets the current view to the value returned
+ * by the viewGenerator function.
+ */
+
+var ViewManager = {
+    currentView: null,
+    loadView: function(newElementId, viewGenerator) {
+        this.currentView != null && this.currentView.remove();
+        var viewContainer = document.createElement("div");
+        viewContainer.id = newElementId;
+        document.getElementById('content').appendChild(viewContainer);
+        viewContainer.setAttribute("class", "container");
+        this.currentView = viewGenerator();
     }
-});
+}
 
 var AppRouter = Backbone.Router.extend({
+    currentView : null,
     routes: {
         '': 'homeRoute',
         'kaboom': 'kaboomRoute',
@@ -87,24 +57,24 @@ var AppRouter = Backbone.Router.extend({
         'kafka': 'kafkaRoute'
     },
     homeRoute: function () {
-        var homeView = new HomeView();
-        AppMenu.refresh(homeView.menuItems);
-        $("#content").html(homeView.el);
+        ViewManager.loadView("home-content", function() {
+            return new HomeView({el: "#home-content"});
+        });
     },
     kaboomRoute: function () {
-        var kaboomView = new KaBoomView();
-        AppMenu.refresh(kaboomView.menuItems);
-        $("#content").html(kaboomView.el);
+        ViewManager.loadView("kaboom-content", function() {
+            return new KaBoomView({el: "#kaboom-content"});
+        });
     },
     kaboomConfigRoute: function () {
-        var kaboomConfigView = new KaBoomConfigView();
-        AppMenu.refresh(kaboomConfigView.menuItems);
-        $("#content").html(kaboomConfigView.el);
+        ViewManager.loadView("kaboomConfig-content", function() {
+            return new KaBoomConfigView({el: "#kaboomConfig-content"});
+        });
     },
     kafkaRoute: function () {
-        var kafkaView = new KafkaView();
-        AppMenu.refresh(kafkaView.menuItems);
-        $("#content").html(kafkaView.el);
+        ViewManager.loadView("kafka-content", function() {
+            return new KafkaView({el: "#kafka-content"});
+        });
     }
 });
 

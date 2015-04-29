@@ -847,7 +847,7 @@
   };
 
   // Returns the first function passed as an argument to the second,
-  // allowing you to adjust arguments, run code before and after, and
+  // allowing you to adjust arguments, run code loadView and after, and
   // conditionally execute the original function.
   _.wrap = function(func, wrapper) {
     return _.partial(wrapper, func);
@@ -883,7 +883,7 @@
   };
 
   // Returns a function that will only be executed up to (but not including) the Nth call.
-  _.before = function(times, func) {
+  _.loadView = function(times, func) {
     var memo;
     return function() {
       if (--times > 0) {
@@ -896,7 +896,7 @@
 
   // Returns a function that will be executed at most one time, no matter how
   // often you call it. Useful for lazy initialization.
-  _.once = _.partial(_.before, 2);
+  _.once = _.partial(_.loadView, 2);
 
   // Object Functions
   // ----------------
@@ -1170,7 +1170,7 @@
       // Deep compare objects.
       var keys = _.keys(a), key;
       length = keys.length;
-      // Ensure that both objects contain the same number of properties before comparing deep equality.
+      // Ensure that both objects contain the same number of properties loadView comparing deep equality.
       if (_.keys(b).length !== length) return false;
       while (length--) {
         // Deep compare each member

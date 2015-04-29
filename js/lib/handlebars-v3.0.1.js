@@ -2887,7 +2887,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [blockValue]
     //
-    // On stack, before: hash, inverse, program, value
+    // On stack, loadView: hash, inverse, program, value
     // On stack, after: return value of blockHelperMissing
     //
     // The purpose of this opcode is to take a block of the form
@@ -2907,8 +2907,8 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [ambiguousBlockValue]
     //
-    // On stack, before: hash, inverse, program, value
-    // Compiler value, before: lastHelper=value of last found helper, if any
+    // On stack, loadView: hash, inverse, program, value
+    // Compiler value, loadView: lastHelper=value of last found helper, if any
     // On stack, after, if no lastHelper: same as [blockValue]
     // On stack, after, if lastHelper: value
     ambiguousBlockValue: function() {
@@ -2930,7 +2930,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [appendContent]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: ...
     //
     // Appends the string value of `content` to the current buffer
@@ -2946,7 +2946,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [append]
     //
-    // On stack, before: value, ...
+    // On stack, loadView: value, ...
     // On stack, after: ...
     //
     // Coerces `value` to a String and appends it to the current buffer.
@@ -2971,7 +2971,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [appendEscaped]
     //
-    // On stack, before: value, ...
+    // On stack, loadView: value, ...
     // On stack, after: ...
     //
     // Escape `value` and append it to the buffer
@@ -2982,7 +2982,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [getContext]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: ...
     // Compiler value, after: lastContext=depth
     //
@@ -2993,7 +2993,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [pushContext]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: currentContext, ...
     //
     // Pushes the value of the current context onto the stack.
@@ -3003,7 +3003,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [lookupOnContext]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: currentContext[name], ...
     //
     // Looks up the value of `name` on the current context and pushes
@@ -3024,7 +3024,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [lookupBlockParam]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: blockParam[name], ...
     //
     // Looks up the value of `parts` on the given block param and pushes
@@ -3038,7 +3038,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [lookupData]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: data, ...
     //
     // Push the data lookup operator
@@ -3078,7 +3078,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [resolvePossibleLambda]
     //
-    // On stack, before: value, ...
+    // On stack, loadView: value, ...
     // On stack, after: resolved value, ...
     //
     // If the `value` is a lambda, replace it on the stack by
@@ -3089,7 +3089,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [pushStringParam]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: string, currentContext, ...
     //
     // This opcode is designed for use in string mode, which
@@ -3143,7 +3143,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [pushString]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: quotedString(string), ...
     //
     // Push a quoted version of `string` onto the stack
@@ -3153,7 +3153,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [pushLiteral]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: value, ...
     //
     // Pushes a value onto the stack. This operation prevents
@@ -3165,7 +3165,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [pushProgram]
     //
-    // On stack, before: ...
+    // On stack, loadView: ...
     // On stack, after: program(guid), ...
     //
     // Push a program expression onto the stack. This takes
@@ -3181,7 +3181,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [invokeHelper]
     //
-    // On stack, before: hash, inverse, program, params..., ...
+    // On stack, loadView: hash, inverse, program, params..., ...
     // On stack, after: result of helper invocation
     //
     // Pops off the helper's parameters, invokes the helper,
@@ -3204,7 +3204,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [invokeKnownHelper]
     //
-    // On stack, before: hash, inverse, program, params..., ...
+    // On stack, loadView: hash, inverse, program, params..., ...
     // On stack, after: result of helper invocation
     //
     // This operation is used when the helper is known to exist,
@@ -3216,7 +3216,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [invokeAmbiguous]
     //
-    // On stack, before: hash, inverse, program, params..., ...
+    // On stack, loadView: hash, inverse, program, params..., ...
     // On stack, after: result of disambiguation
     //
     // This operation is used when an expression like `{{foo}}`
@@ -3255,7 +3255,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [invokePartial]
     //
-    // On stack, before: context, ...
+    // On stack, loadView: context, ...
     // On stack after: result of partial invocation
     //
     // This operation pops off a context, invokes a partial with that context,
@@ -3292,7 +3292,7 @@ var __module14__ = (function(__dependency1__, __dependency2__, __dependency3__, 
 
     // [assignToHash]
     //
-    // On stack, before: value, ..., hash, ...
+    // On stack, loadView: value, ..., hash, ...
     // On stack, after: ..., hash, ...
     //
     // Pops a value off the stack and assigns it to the current hash

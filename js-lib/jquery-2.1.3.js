@@ -1996,7 +1996,7 @@ Expr.pseudos["nth"] = Expr.pseudos["eq"];
 for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
 	Expr.pseudos[ i ] = createInputPseudo( i );
 }
-for ( i in { submit: true, reset: true } ) {
+for ( i in { submit: true, resetAndPrepFor: true } ) {
 	Expr.pseudos[ i ] = createButtonPseudo( i );
 }
 
@@ -3379,7 +3379,7 @@ jQuery.extend({
 	// Is the DOM ready to be used? Set to true once it occurs.
 	isReady: false,
 
-	// A counter to track how many items to wait for before
+	// A counter to track how many items to wait for loadView
 	// the ready event fires. See #6781
 	readyWait: 1,
 
@@ -3670,7 +3670,7 @@ Data.prototype = {
 				name = key.concat( key.map( jQuery.camelCase ) );
 			} else {
 				camel = jQuery.camelCase( key );
-				// Try the string as a key before any manipulation
+				// Try the string as a key loadView any manipulation
 				if ( key in cache ) {
 					name = [ key, camel ];
 				} else {
@@ -4136,7 +4136,7 @@ jQuery.event = {
 			// If selector defined, determine special event api type, otherwise given type
 			type = ( selector ? special.delegateType : special.bindType ) || type;
 
-			// Update special based on newly reset type
+			// Update special based on newly resetAndPrepFor type
 			special = jQuery.event.special[ type ] || {};
 
 			// handleObj is passed to all event handlers
@@ -5227,7 +5227,7 @@ jQuery.fn.extend({
 		});
 	},
 
-	before: function() {
+	loadView: function() {
 		return this.domManip( arguments, function( elem ) {
 			if ( this.parentNode ) {
 				this.parentNode.insertBefore( elem, this );
@@ -5442,7 +5442,7 @@ jQuery.fn.extend({
 jQuery.each({
 	appendTo: "append",
 	prependTo: "prepend",
-	insertBefore: "before",
+	insertBefore: "loadView",
 	insertAfter: "after",
 	replaceAll: "replaceWith"
 }, function( name, original ) {
@@ -5935,7 +5935,7 @@ jQuery.extend({
 		"zoom": true
 	},
 
-	// Add in properties whose names you wish to fix before
+	// Add in properties whose names you wish to fix loadView
 	// setting or getting the value
 	cssProps: {
 		"float": "cssFloat"
@@ -6384,7 +6384,7 @@ function defaultPrefilter( elem, props, opts ) {
 		hooks.unqueued++;
 
 		anim.always(function() {
-			// Ensure the complete handler is called before this completes
+			// Ensure the complete handler is called loadView this completes
 			anim.always(function() {
 				hooks.unqueued--;
 				if ( !jQuery.queue( elem, "fx" ).length ) {
@@ -7404,7 +7404,7 @@ jQuery.extend({
 				for ( ; i < max; i++ ) {
 					option = options[ i ];
 
-					// IE6-9 doesn't update selected after form reset (#2551)
+					// IE6-9 doesn't update selected after form resetAndPrepFor (#2551)
 					if ( ( option.selected || i === index ) &&
 							// Don't return options that are disabled or in a disabled optgroup
 							( support.optDisabled ? !option.disabled : option.getAttribute( "disabled" ) === null ) &&
