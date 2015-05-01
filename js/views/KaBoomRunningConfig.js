@@ -7,6 +7,7 @@ var KaBoomConfigView = Backbone.View.extend({
     template: Handlebars.compile($("#kaboom-config-template").html()),
     events: {
         "click .save": "save",
+        "click .cancel": "render",
         "change input": "change"
     },
     initialize: function() {
@@ -38,6 +39,7 @@ var KaBoomConfigView = Backbone.View.extend({
         }
         console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + change[target.name]);
         this.model.set(change);
+        this.dirty = true;
     },
     save: function() {
         var _self = this;

@@ -1,3 +1,25 @@
 .table-nonfluid {
 	width: auto !important;
 }
+
+.disabledTextInput {
+	border: solid 1px transparent;
+	text-align: right;
+	background: transparent;
+}
+
+.enabledTextInput {
+	text-align: right;
+	border: solid 1px #66CD00;
+	outline: solid 1px #7FFF00;
+}
+
+.enabledCheckbox {
+	border: solid 1px #66CD00;
+	outline: solid 1px #7FFF00;
+}
+.disabledCheckbox {
+	border: solid 1px transparent;
+	text-align: right;
+	background: transparent;
+}
