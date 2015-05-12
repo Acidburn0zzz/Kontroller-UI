@@ -10,7 +10,7 @@ AppMenu.menuItems = [
     {'link': "kafka", 'title': "Kafka"},
     {'link': "kaboom", 'title': "KaBoom", 'subMenu': [
         {'link': "kaboom-config", 'title': "Running Config"},
-        {'link': "kaboom-topics", 'title': "Topics"},
+        {'link': "kaboom-topics", 'title': "Topic Config"},
         {'link': "kaboom-assignments", 'title': "Assignments"}
     ]}
 ];
@@ -25,5 +25,5 @@ AppMenu.refresh = function(newActiveItems) {
     AppMenu.activeItems = newActiveItems;
 };
 
-var headerTemplate = Handlebars.compile($("#header-nav-bar").html());
-$("#header").html(headerTemplate(AppMenu));
+var headerTemplate = Handlebars.compile($("#header-nav-bar-template").html());
+$("#header-container").html(headerTemplate(AppMenu));

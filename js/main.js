@@ -1,8 +1,27 @@
-Handlebars.registerPartial('kaboomRunningConfigForm', $("#kaboomRunningConfigForm").html());
+Handlebars.registerPartial('kaboom-running-config-form-template',
+    $("#kaboom-running-config-form-template").html());
+
+Handlebars.registerPartial('kaboom-topic-list-template',
+    $("#kaboom-topic-list-template").html());
+
+Handlebars.registerPartial('kaboom-topic-edit-form-template',
+    $("#kaboom-topic-edit-form-template").html());
 
 Handlebars.registerHelper('checkedBoxFromBool', function(bool) {
     if (bool == true) {
         return "checked"
+    }
+});
+
+Handlebars.registerHelper("debug", function(optionalValue) {
+    console.log("Current Context");
+    console.log("====================");
+    console.log(this);
+
+    if (optionalValue) {
+        console.log("Value");
+        console.log("====================");
+        console.log(optionalValue);
     }
 });
 
@@ -27,7 +46,7 @@ var ViewManager = {
         this.currentView != null && this.currentView.remove();
         var viewContainer = document.createElement("div");
         viewContainer.id = newElementId;
-        document.getElementById('content').appendChild(viewContainer);
+        document.getElementById('content-container').appendChild(viewContainer);
         viewContainer.setAttribute("class", "container");
         this.currentView = viewGenerator();
         AppMenu.refresh(this.currentView.menuItems);
@@ -40,6 +59,8 @@ var AppRouter = Backbone.Router.extend({
         '': 'homeRoute',
         'kaboom': 'kaboomRoute',
         'kaboom-config': 'kaboomConfigRoute',
+        'kaboom-topics': 'kaboomTopicListRoute',
+        "kaboom-topics/:id"	: "kaboomTopicEditRoute",
         'kafka': 'kafkaRoute'
     },
     homeRoute: function () {
@@ -53,8 +74,23 @@ var AppRouter = Backbone.Router.extend({
         });
     },
     kaboomConfigRoute: function () {
-        ViewManager.loadView("kaboomConfig-content", function() {
-            return new KaBoomConfigView({el: "#kaboomConfig-content"});
+        ViewManager.loadView("kaboom-config-content", function() {
+            return new KaBoomConfigView({el: "#kaboom-config-content"});
+        });
+    },
+    kaboomTopicListRoute: function () {
+        ViewManager.loadView("kaboom-topic-list-content", function() {
+            return new KaBoomTopicListView({el: "#kaboom-topic-list-content"});
+        });
+    },
+    kaboomTopicEditRoute: function (id) {
+        ViewManager.loadView("kaboom-topic-edit-content", function() {
+            var _self = this;
+           _self.currentTopicId = id;
+            return new KaBoomTopicEditView({
+                el: "#kaboom-topic-edit-content",
+                currentTopicId: _self.currentTopicId
+            });
         });
     },
     kafkaRoute: function () {
@@ -63,7 +99,7 @@ var AppRouter = Backbone.Router.extend({
         });
     },
     hashChange : function(evt) {
-        if(this.cancelNavigate) { // cancel out if just reverting the URL
+        if(this.cancelNavigate) {
             evt.stopImmediatePropagation();
             this.cancelNavigate = false;
             return;

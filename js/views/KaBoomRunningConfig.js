@@ -18,6 +18,7 @@ var KaBoomConfigView = Backbone.View.extend({
     render: function() {
         var _self = this;
         this.deferred = this.model.fetch();
+        this.dirty = false;
         this.deferred.done(function(data) {
             _self.model.set(data);
             $(_self.el).html(_self.template({runningConfig: _self.model.attributes}));
@@ -45,6 +46,9 @@ var KaBoomConfigView = Backbone.View.extend({
         var _self = this;
         this.model.save().then(function() {
             _self.render();
-        }, null);
+        }, function(obj) {
+            alert("There was a problem saving the Running Configuration");
+            console.log(obj);
+        });
     }
 });
