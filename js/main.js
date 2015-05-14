@@ -7,6 +7,12 @@ Handlebars.registerPartial('kaboom-topic-list-template',
 Handlebars.registerPartial('kaboom-topic-edit-form-template',
     $("#kaboom-topic-edit-form-template").html());
 
+Handlebars.registerPartial('kaboom-topic-filter-form-template',
+    $("#kaboom-topic-filter-form-template").html());
+
+Handlebars.registerPartial('topic-filter-mgmt-butons',
+    $("#topic-filter-mgmt-butons").html());
+
 Handlebars.registerHelper('checkedBoxFromBool', function(bool) {
     if (bool == true) {
         return "checked"
@@ -15,12 +21,11 @@ Handlebars.registerHelper('checkedBoxFromBool', function(bool) {
 
 Handlebars.registerHelper("debug", function(optionalValue) {
     console.log("Current Context");
-    console.log("====================");
+    console.log("===============");
     console.log(this);
-
     if (optionalValue) {
         console.log("Value");
-        console.log("====================");
+        console.log("=====");
         console.log(optionalValue);
     }
 });

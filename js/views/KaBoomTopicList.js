@@ -7,6 +7,17 @@ var KaBoomTopicConfigCollection = Backbone.Collection.extend({
     url: "api/kaboom-topic-config"
 });
 
+var KaBoomTopicFilter = Backbone.Model.extend({
+    defaults: {
+        name: '<new filter>',
+        type: 'STRING_MATCH',
+        filterIntentionIsToMatch: true,
+        filter: '<match me>',
+        duration: 3600,
+        directory: '<SOME DIR>'
+    }
+});
+
 var KaBoomTopicListView = Backbone.View.extend({
     menuItems: ['kaboom', 'kaboom-topics'],
     template: Handlebars.compile($("#kaboom-topic-template").html()),
