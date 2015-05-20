@@ -82,7 +82,7 @@
 
     <table class="table table-striped table-nonfluid" width="">
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="readyFlagPrevHoursCheck"
@@ -91,7 +91,7 @@
             <td><label for="readyFlagPrevHoursCheck">Num Previous Hours for Ready Flag Checks</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="leaderSleepDurationMs"
@@ -100,7 +100,7 @@
             <td><label for="leaderSleepDurationMs">Leader Sleep Duration (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="compressionLevel"
@@ -109,7 +109,7 @@
             <td><label for="compressionLevel">Compression Level</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="boomFileBufferSize"
@@ -118,7 +118,7 @@
             <td><label for="boomFileBufferSize">Boom File Buffer Size</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="boomFileReplicas"
@@ -127,7 +127,7 @@
             <td><label for="boomFileReplicas">Boom File Replicas</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="boomFileBlocksize"
@@ -136,7 +136,7 @@
             <td><label for="boomFileBlocksize">Boom File Block Size</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="boomFileTmpPrefix"
@@ -145,7 +145,7 @@
             <td><label for="boomFileTmpPrefix">Boom File Temp Prefix</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="periodicHdfsFlushInterval"
@@ -154,7 +154,7 @@
             <td><label for="periodicHdfsFlushInterval">Periodic HDFS Flush Interval (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="periodicFileCloseInterval"
@@ -163,7 +163,7 @@
             <td><label for="periodicFileCloseInterval">Periodic File Close Check Interval (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="kaboomServerSleepDurationMs"
@@ -172,7 +172,7 @@
             <td><label for="kaboomServerSleepDurationMs">KaBoom Server Sleep Duration (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="fileCloseGraceTimeAfterExpiredMs"
@@ -181,7 +181,7 @@
             <td><label for="fileCloseGraceTimeAfterExpiredMs">Grace Time After Expired File Before Closing (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="forcedZkOffsetTsUpdateMs"
@@ -190,7 +190,7 @@
             <td><label for="forcedZkOffsetTsUpdateMs">Forced ZK Offset Timestamp Delay (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly="true"
+            <td><input class="disabledTextInput" type="text" readonly
                        ondblclick="enableTextInput(this)"
                        onblur="disableTextInput(this)"
                        id="kafkaReadyFlagFilename"
@@ -201,7 +201,7 @@
         <tr>
             <td align="right">
                 <div id="sinkToHighWatermarkDiv">
-                <input class="disabledCheckbox" type="checkbox" readonly="true" onclick="return false"
+                <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
                                      ondblclick="enableCheckbox(this, 'sinkToHighWatermarkDiv')"
                                      onblur="disableCheckbox(this, 'sinkToHighWatermarkDiv')"
                                      id="sinkToHighWatermark"
@@ -213,7 +213,7 @@
         <tr>
             <td align="right">
                 <div id="allowOffsetOverridesDiv">
-                <input class="disabledCheckbox" type="checkbox" readonly="true" onclick="return false"
+                <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
                                      ondblclick="enableCheckbox(this, 'allowOffsetOverridesDiv')"
                                      onblur="disableCheckbox(this, 'allowOffsetOverridesDiv')"
                                      id="allowOffsetOverrides"
@@ -225,7 +225,7 @@
         <tr>
             <td align="right">
                 <div id="useTempOpenFileDirectoryDiv">
-                <input class="disabledCheckbox" type="checkbox" readonly="true" onclick="return false"
+                <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
                                      ondblclick="enableCheckbox(this, 'useTempOpenFileDirectoryDiv')"
                                      onblur="disableCheckbox(this, 'useTempOpenFileDirectoryDiv')"
                                      id="useTempOpenFileDirectory"
@@ -237,7 +237,7 @@
         <tr>
             <td align="right">
                 <div id="useNativeCompressionDiv">
-                <input class="disabledCheckbox" type="checkbox" readonly="true" onclick="return false"
+                <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
                                      ondblclick="enableCheckbox(this, 'useNativeCompressionDiv')"
                                      onblur="disableCheckbox(this, 'useNativeCompressionDiv')"
                                      id="useNativeCompression"
@@ -307,6 +307,8 @@
         {{#each filterSet}}
             {{>kaboom-topic-filter-form-template filter=attributes numFilters=../filterSet.length}}
         {{/each}}
+        <button class="save">Save</button> &nbsp;
+        <button class="cancel">Cancel</button>
     </div>
 </script>
 
@@ -367,13 +369,13 @@
             </tr>
             <tr>
                 <td align="right">
-                    <div id="filterIntentionIsToMatchDiv">
+                    <div id="filterIntentionIsToMatchDiv[{{filter.number}}]">
                         <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
-                               ondblclick="enableCheckbox(this, 'filterIntentionIsToMatchDiv')"
-                               onblur="disableCheckbox(this, 'filterIntentionIsToMatchDiv')"
+                               ondblclick="enableCheckbox(this, 'filterIntentionIsToMatchDiv[{{filter.number}}]')"
+                               onblur="disableCheckbox(this, 'filterIntentionIsToMatchDiv[{{filter.number}}]')"
                                id="filterSet[{{filter.number}}][filterIntentionIsToMatch]"
                                name="filterSet[{{filter.number}}][filterIntentionIsToMatch]"
-                               {{{checkedBoxFromBool filterIntentionIsToMatch}}} />
+                               {{{checkedBoxFromBool filter.filterIntentionIsToMatch }}}/>
                     </div></td>
                 <td><label for="filterSet[{{filter.number}}][filterIntentionIsToMatch]">Filter's Intention is to Match?</label></td>
             </tr>
@@ -388,8 +390,8 @@
 <script src="js/views/KaBoomView.js"></script>
 <script src="js/views/KafkaView.js"></script>
 <script src="js/views/KaBoomRunningConfig.js"></script>
-<script src="js/views/KaBoomTopicList.js"></script>
 <script src="js/views/KaBoomTopicEdit.js"></script>
+<script src="js/views/KaBoomTopicList.js"></script>
 <script src="js/menu.js"></script>
 <script src="js/main.js"></script>
 </body>

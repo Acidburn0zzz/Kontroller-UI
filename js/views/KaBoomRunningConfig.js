@@ -34,8 +34,7 @@ var KaBoomConfigView = Backbone.View.extend({
             else {
                 change[target.name] = 'false';
             }
-        }
-        else {
+        } else {
             change[target.name] = target.value;
         }
         console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + change[target.name]);

@@ -19,11 +19,8 @@ function enableCheckbox(element, divId) {
     div.className = "enabledTextInput";
     element.readOnly = false;
     element.onclick = function() {
-        console.log("checked: " + !element.checked);
-        //element.checked = !element.checked;
         return true;
     };
-    //element.className = "enabledTextInput";
 }
 
 function disableCheckbox(element, divId) {
@@ -34,3 +31,17 @@ function disableCheckbox(element, divId) {
         return false;
     }
 }
+
+function recursiveToJSON(json) {
+    for(var attr in json) {
+        if (json[attr] instanceof Array) {
+            json[attr] = recursiveToJSON(json[attr]);
+        }
+        if((json[attr] instanceof Backbone.Model) || (json[attr] instanceof Backbone.Collection)) {
+            json[attr] = json[attr].toJSON();
+        }
+    }
+    console.log("The recursive json is ", json);
+    return json;
+}
+

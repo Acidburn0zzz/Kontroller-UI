@@ -26,6 +26,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
         "click .filterUp": "filterUp",
         "click .filterDown": "filterDown",
         "click .cancel": "render",
+        "click .save": "save",
         "change input": "change"
     },
     initialize: function() {
@@ -35,16 +36,17 @@ var KaBoomTopicEditView = Backbone.View.extend({
         }
         this.currentTopicId = currentTopicId;
         this.topicConfigs.fetch({success: function() {
+            _self.dirty = false;
             _self.render();
         }});
         return this;
     },
     render: function() {
+        //console.log(this.getTopic());
         var _self = this;
-        this.dirty = false;
-        $(_self.el).html(_self.template({
+        $(this.el).html(this.template({
             topics: this.topicConfigs.models,
-            currentTopic: this.topicConfigs.get(this.currentTopicId)
+            currentTopic: _self.getTopic()
         }));
         $("#" + this.currentTopicId).addClass("active");
     },
@@ -53,45 +55,42 @@ var KaBoomTopicEditView = Backbone.View.extend({
     },
     change: function(event) {
         var target = event.target;
+        var newValue = target.value;
+        if (target.type && target.type === 'checkbox') {
+            if (target.checked) {
+                newValue = 'true';
+            } else {
+                newValue = 'false';
+            }
+        }
         var change = {};
-        //var match = target.name.match(/^filterSet\[(\d+)]\[(.*?)]/g);
-
         var regex = /^filterSet\[(\d+)]\[(.*?)]/g
         var match = regex.exec(target.name);
         if (match) {
             var index = match[1] - 1;
             var name = match[2];
-            change[name] = target.value;
-            var filter = this.getTopic().attributes.filterSet[index];
-            filter.set(change);
-        }
-        else {
-            if (target.type && target.type === 'checkbox') {
-                if (target.checked) {
-                    change[target.name] = 'true';
-                }
-                else {
-                    change[target.name] = 'false';
-                }
-            }
-            else {
-                change[target.name] = target.value;
-            }
-            console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + change[target.name]);
+            change[name] = newValue;
+            this.getTopic().attributes.filterSet[index].set(change);
+        } else {
+            change[target.name] = newValue;
             this.getTopic().set(change);
         }
-        this.render();
+        //console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + newValue);
+        this.dirty = true;
+        //this.render();
     },
     filterUp: function(event) {
         var index1 = event.target.value - 1;
         var index2 = event.target.value - 2;
         this.swapFilters(index1, index2);
+        this.dirty = true;
         this.render();
     },
     filterDown: function(event) {
         var index1 = event.target.value - 1;
         var index2 = event.target.value;
         this.swapFilters(index1, index2);
+        this.dirty = true;
         this.render();
     },
     swapFilters: function(index1, index2) {
@@ -100,17 +99,30 @@ var KaBoomTopicEditView = Backbone.View.extend({
         var obj2 = filters[index2];
         var num1 = obj1.attributes.number;
         var num2 = obj2.attributes.number;
-        console.log("swapping index " + index1 + " (number: " + num1
-            + " for index " + index2 + " (number " + num2 + ")");
         filters[index1] = obj2;
         filters[index2] = obj1;
-
         filters[index1].attributes.number = num1;
         filters[index2].attributes.number = num2;
     },
-    addFilter: function(event) {
+    addFilter: function() {
         this.getTopic().attributes.filterSet.push(
             new KaBoomTopicFilter({number: this.getTopic().attributes.filterSet.length + 1}));
+        this.dirty = true;
         this.render();
+    },
+    save: function() {
+        var _self = this;
+        this.getTopic().save().then(function() {
+            _self.topicConfigs = new KaBoomTopicConfigCollection();
+            _self.topicConfigs.fetch({success: function() {
+                console.log("we've fetched after save")
+                _self.dirty = false;
+                _self.render();
+
+            }});
+        }, function(obj) {
+            alert("There was a problem saving the topic configuration");
+            console.log(obj);
+        });
     }
 });

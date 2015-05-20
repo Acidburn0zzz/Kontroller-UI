@@ -31,6 +31,26 @@ Handlebars.registerHelper("debug", function(optionalValue) {
 });
 
 /*
+ * BackBone (by default doesn't inherently call toJSON() on attributes
+ * that are other models.  I'm not sure why.. However, if we override
+ * the toJSON() function and add a little introspection then we should
+ * be able to achieve what we want
+ */
+/*
+Backbone.Model.prototype.toJSON = function() {
+    var json = _.clone(this.attributes);
+    for(var attr in json) {
+        if((json[attr] instanceof Backbone.Model) || (json[attr] instanceof Backbone.Collection)) {
+            json[attr] = json[attr].toJSON();
+            console.log("we're overriding the toJSON on attr=" + attr);
+        }
+    }
+    console.log("here's the full JSON: " + json);
+    return json;
+};
+*/
+
+/*
  * The view manager has a single function, loadView(), that accepts an
  * element ID as well as a function that instantiates the view.  Note
  * that newElementId must not contain the # prefix as it's created
