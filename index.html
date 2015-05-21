@@ -77,173 +77,118 @@
     </nav>
 </script>
 
+<script id="editable-ro-text-input" type="text/x-handlebars-template">
+    <input readonly
+           class="disabledTextInput"
+           type="text"
+           ondblclick="enableTextInput(this)"
+           onblur="disableTextInput(this)"
+           onkeypress="textInputKeypress(this, event)"
+           id="{{indexed-array-id id array index}}"
+           name="{{indexed-array-id id array index}}"
+           value="{{value}}" />
+</script>
+
+<script id="editable-ro-checkbox" type="text/x-handlebars-template">
+    <div class="disabledTextInput" id="div-{{indexed-array-id id array index}}">
+        <input readonly
+               class="disabledCheckbox"
+               type="checkbox"
+               onclick="return false"
+               ondblclick="enableCheckbox(this, 'div-{{indexed-array-id id array index}}')"
+               onblur="disableCheckbox(this, 'div-{{indexed-array-id id array index}}')"
+               id="{{indexed-array-id id array index}}"
+               name="{{indexed-array-id id array index}}"
+               {{{checkedBoxFromBool bool }}}/>
+    </div>
+</script>
+
+<script>
+    Handlebars.registerHelper('indexed-array-id', function(id, array, index) {
+        var finalId = "";
+        if (array) {
+            if (index) {
+                finalId = finalId + array + "[" + index+"][" + id + "]";
+            } else {
+                finalId = finalId + array + "[" + id + "]";
+            }
+        } else {
+            finalId = finalId + id;
+        }
+        return finalId;
+    });
+</script>
+
 <script id="kaboom-running-config-form-template" type="text/x-handlebars-template">
     <h4><strong>Running Config Version: <span class="badge">{{version}}</span></strong></h4>
 
     <table class="table table-striped table-nonfluid" width="">
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="readyFlagPrevHoursCheck"
-                       name="readyFlagPrevHoursCheck"
-                       value="{{readyFlagPrevHoursCheck}}" /></td>
+            <td>{{>editable-ro-text-input id="readyFlagPrevHoursCheck" value=readyFlagPrevHoursCheck}}</td>
             <td><label for="readyFlagPrevHoursCheck">Num Previous Hours for Ready Flag Checks</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="leaderSleepDurationMs"
-                       name="leaderSleepDurationMs" type="text"
-                       value="{{leaderSleepDurationMs}}" /></td>
+            <td>{{>editable-ro-text-input id="leaderSleepDurationMs" value=leaderSleepDurationMs}}</td>
             <td><label for="leaderSleepDurationMs">Leader Sleep Duration (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="compressionLevel"
-                       name="compressionLevel"
-                       value="{{compressionLevel}}" /></td>
+            <td>{{>editable-ro-text-input id="compressionLevel" value=compressionLevel}}</td>
             <td><label for="compressionLevel">Compression Level</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="boomFileBufferSize"
-                       name="boomFileBufferSize"
-                       value="{{boomFileBufferSize}}" /></td>
+            <td>{{>editable-ro-text-input id="boomFileBufferSize" value=boomFileBufferSize}}</td>
             <td><label for="boomFileBufferSize">Boom File Buffer Size</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="boomFileReplicas"
-                       name="boomFileReplicas"
-                       value="{{boomFileReplicas}}" /></td>
+            <td>{{>editable-ro-text-input id="boomFileReplicas" value=boomFileReplicas}}</td>
             <td><label for="boomFileReplicas">Boom File Replicas</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="boomFileBlocksize"
-                       name="boomFileBlocksize"
-                       value="{{boomFileBlocksize}}" /></td>
+            <td>{{>editable-ro-text-input id="boomFileBlocksize" value=boomFileBlocksize}}</td>
             <td><label for="boomFileBlocksize">Boom File Block Size</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="boomFileTmpPrefix"
-                       name="boomFileTmpPrefix"
-                       value="{{boomFileTmpPrefix}}" /></td>
+            <td>{{>editable-ro-text-input id="boomFileTmpPrefix" value=boomFileTmpPrefix}}</td>
             <td><label for="boomFileTmpPrefix">Boom File Temp Prefix</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="periodicHdfsFlushInterval"
-                       name="periodicHdfsFlushInterval"
-                       value="{{periodicHdfsFlushInterval}}" /></td>
+            <td>{{>editable-ro-text-input id="periodicHdfsFlushInterval" value=periodicHdfsFlushInterval}}</td>
             <td><label for="periodicHdfsFlushInterval">Periodic HDFS Flush Interval (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="periodicFileCloseInterval"
-                       name="periodicFileCloseInterval"
-                       value="{{periodicFileCloseInterval}}" /></td>
+            <td>{{>editable-ro-text-input id="periodicFileCloseInterval" value=periodicFileCloseInterval}}</td>
             <td><label for="periodicFileCloseInterval">Periodic File Close Check Interval (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="kaboomServerSleepDurationMs"
-                       name="kaboomServerSleepDurationMs"
-                       value="{{kaboomServerSleepDurationMs}}" /></td>
+            <td>{{>editable-ro-text-input id="kaboomServerSleepDurationMs" value=kaboomServerSleepDurationMs}}</td>
             <td><label for="kaboomServerSleepDurationMs">KaBoom Server Sleep Duration (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="fileCloseGraceTimeAfterExpiredMs"
-                       name="fileCloseGraceTimeAfterExpiredMs"
-                       value="{{fileCloseGraceTimeAfterExpiredMs}}" /></td>
+            <td>{{>editable-ro-text-input id="fileCloseGraceTimeAfterExpiredMs" value=fileCloseGraceTimeAfterExpiredMs}}</td>
             <td><label for="fileCloseGraceTimeAfterExpiredMs">Grace Time After Expired File Before Closing (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="forcedZkOffsetTsUpdateMs"
-                       name="forcedZkOffsetTsUpdateMs"
-                       value="{{forcedZkOffsetTsUpdateMs}}" /></td>
+            <td>{{>editable-ro-text-input id="forcedZkOffsetTsUpdateMs" value=forcedZkOffsetTsUpdateMs}}</td>
             <td><label for="forcedZkOffsetTsUpdateMs">Forced ZK Offset Timestamp Delay (ms)</label></td>
         </tr>
         <tr>
-            <td><input class="disabledTextInput" type="text" readonly
-                       ondblclick="enableTextInput(this)"
-                       onblur="disableTextInput(this)"
-                       id="kafkaReadyFlagFilename"
-                       name="kafkaReadyFlagFilename"
-                       value="{{kafkaReadyFlagFilename}}" /></td>
+            <td>{{>editable-ro-text-input id="kafkaReadyFlagFilename" value=kafkaReadyFlagFilename}}</td>
             <td><label for="kafkaReadyFlagFilename">Ready Flag Writer Flag FileName</label></td>
         </tr>
         <tr>
-            <td align="right">
-                <div id="sinkToHighWatermarkDiv">
-                <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
-                                     ondblclick="enableCheckbox(this, 'sinkToHighWatermarkDiv')"
-                                     onblur="disableCheckbox(this, 'sinkToHighWatermarkDiv')"
-                                     id="sinkToHighWatermark"
-                                     name="sinkToHighWatermark"
-                                     {{{checkedBoxFromBool sinkToHighWatermark}}} />
-                </div></td>
+            <td>{{>editable-ro-checkbox id="sinkToHighWatermark" bool=sinkToHighWatermark}}</td>
             <td><label for="sinkToHighWatermark">Sink to High Watermark:</label></td>
         </tr>
         <tr>
-            <td align="right">
-                <div id="allowOffsetOverridesDiv">
-                <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
-                                     ondblclick="enableCheckbox(this, 'allowOffsetOverridesDiv')"
-                                     onblur="disableCheckbox(this, 'allowOffsetOverridesDiv')"
-                                     id="allowOffsetOverrides"
-                                     name="allowOffsetOverrides"
-                                     {{{checkedBoxFromBool allowOffsetOverrides}}} />
-                </div></td>
+            <td>{{>editable-ro-checkbox id="allowOffsetOverrides" bool=allowOffsetOverrides}}</td>
             <td><label for="allowOffsetOverrides">Offset Overrides:</label></td>
         </tr>
         <tr>
-            <td align="right">
-                <div id="useTempOpenFileDirectoryDiv">
-                <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
-                                     ondblclick="enableCheckbox(this, 'useTempOpenFileDirectoryDiv')"
-                                     onblur="disableCheckbox(this, 'useTempOpenFileDirectoryDiv')"
-                                     id="useTempOpenFileDirectory"
-                                     name="useTempOpenFileDirectory"
-                                     {{{checkedBoxFromBool useTempOpenFileDirectory}}} />
-                </div></td>
+            <td>{{>editable-ro-checkbox id="useTempOpenFileDirectory" bool=useTempOpenFileDirectory}}</td>
             <td><label for="useTempOpenFileDirectory">Use Temp Open File Dirs:</label></td>
         </tr>
         <tr>
-            <td align="right">
-                <div id="useNativeCompressionDiv">
-                <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
-                                     ondblclick="enableCheckbox(this, 'useNativeCompressionDiv')"
-                                     onblur="disableCheckbox(this, 'useNativeCompressionDiv')"
-                                     id="useNativeCompression"
-                                     name="useNativeCompression"
-                                     {{{checkedBoxFromBool useNativeCompression}}} />
-                </div></td>
+            <td>{{>editable-ro-checkbox id="useNativeCompression" bool=useNativeCompression}}</td>
             <td><label for="useNativeCompression">Use Native Compression:</label></td>
         </tr>
         <tr>
@@ -282,21 +227,11 @@
         <p>Topic Config Version: <span class="badge">{{version}}</span></p>
         <table class="table table-striped table-nonfluid">
             <tr>
-                <td><input class="disabledTextInput" type="text" readonly
-                           ondblclick="enableTextInput(this)"
-                           onblur="disableTextInput(this)"
-                           id="hdfsRootDir"
-                           name="hdfsRootDir"
-                           value="{{hdfsRootDir}}" /></td>
+                <td>{{>editable-ro-text-input id="hdfsRootDir" value=hdfsRootDir}}</td>
                 <td><label for="hdfsRootDir">HDFS Root Directory</label></td>
             </tr>
             <tr>
-                <td><input class="disabledTextInput" type="text" readonly
-                           ondblclick="enableTextInput(this)"
-                           onblur="disableTextInput(this)"
-                           id="proxyUser"
-                           name="proxyUser"
-                           value="{{proxyUser}}" /></td>
+                <td>{{>editable-ro-text-input id="proxyUser" value=proxyUser}}</td>
                 <td><label for="proxyUser">Proxy User</label></td>
             </tr>
         </table>
@@ -315,68 +250,39 @@
 <script id="topic-filter-mgmt-butons" type="text/x-handlebars-template">
     {{{drawMoveUp filter}}}
     {{{drawMoveDown filter numFilters}}}
+    <button value="{{filter.number}}" type="button" class="btn btn-default btn-sm filterRemove" >
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </button>
 </script>
+
 
 <script id="kaboom-topic-filter-form-template" type="text/x-handlebars-template">
     <hr>
     <div>
-        <p>Filter #{{filter.number}} &nbsp; {{>topic-filter-mgmt-butons numFilters=numFilters filter=filter}}</p>
+        <p><strong>Filter #{{filter.number}}</strong> &nbsp; {{>topic-filter-mgmt-butons numFilters=numFilters filter=filter}}</p>
         <table class="table table-striped table-nonfluid">
             <tr>
-                <td><input class="disabledTextInput" type="text" readonly
-                           ondblclick="enableTextInput(this)"
-                           onblur="disableTextInput(this)"
-                           id="filterSet[{{filter.number}}][name]"
-                           name="filterSet[{{filter.number}}][name]"
-                           value="{{filter.name}}" /></td>
+                <td>{{>editable-ro-text-input id="name" value=filter.name array="filterSet" index=filter.number}}</td>
                 <td><label for="filterSet[{{filter.number}}][name]">Filter Name</label></td>
             </tr>
             <tr>
-                <td><input class="disabledTextInput" type="text" readonly
-                           ondblclick="enableTextInput(this)"
-                           onblur="disableTextInput(this)"
-                           id="filterSet[{{filter.number}}][type]"
-                           name="filterSet[{{filter.number}}][type]"
-                           value="{{filter.type}}" /></td>
+                <td>{{>editable-ro-text-input id="type" value=filter.type array="filterSet" index=filter.number}}</td>
                 <td><label for="filterSet[{{filter.number}}][type]">Filter Type</label></td>
             </tr>
             <tr>
-                <td><input class="disabledTextInput" type="text" readonly
-                           ondblclick="enableTextInput(this)"
-                           onblur="disableTextInput(this)"
-                           id="filterSet[{{filter.number}}][filter]"
-                           name="filterSet[{{filter.number}}][filter]"
-                           value="{{filter.filter}}" /></td>
+                <td>{{>editable-ro-text-input id="filter" value=filter.filter array="filterSet" index=filter.number}}</td>
                 <td><label for="filterSet[{{filter.number}}][filter]">Filter Value</label></td>
             </tr>
             <tr>
-                <td><input class="disabledTextInput" type="text" readonly
-                           ondblclick="enableTextInput(this)"
-                           onblur="disableTextInput(this)"
-                           id="filterSet[{{filter.number}}][duration]"
-                           name="filterSet[{{filter.number}}][duration]"
-                           value="{{filter.duration}}" /></td>
+                <td>{{>editable-ro-text-input id="duration" value=filter.duration array="filterSet" index=filter.number}}</td>
                 <td><label for="filterSet[{{filter.number}}][filter]">Duration</label></td>
             </tr>
             <tr>
-                <td><input class="disabledTextInput" type="text" readonly
-                           ondblclick="enableTextInput(this)"
-                           onblur="disableTextInput(this)"
-                           id="filterSet[{{filter.number}}][directory]"
-                           name="filterSet[{{filter.number}}][directory]"
-                           value="{{filter.directory}}" /></td>
+                <td>{{>editable-ro-text-input id="directory" value=filter.directory array="filterSet" index=filter.number}}</td>
                 <td><label for="filterSet[{{filter.number}}][directory]">Directory</label></td>
             </tr>
             <tr>
-                <td align="right">
-                    <div id="filterIntentionIsToMatchDiv[{{filter.number}}]">
-                        <input class="disabledCheckbox" type="checkbox" readonly onclick="return false"
-                               ondblclick="enableCheckbox(this, 'filterIntentionIsToMatchDiv[{{filter.number}}]')"
-                               onblur="disableCheckbox(this, 'filterIntentionIsToMatchDiv[{{filter.number}}]')"
-                               id="filterSet[{{filter.number}}][filterIntentionIsToMatch]"
-                               name="filterSet[{{filter.number}}][filterIntentionIsToMatch]"
-                               {{{checkedBoxFromBool filter.filterIntentionIsToMatch }}}/>
-                    </div></td>
+                <td>{{>editable-ro-checkbox id="filterIntentionIsToMatch" bool=filter.filterIntentionIsToMatch array="filterSet" index=filter.number}}</td>
                 <td><label for="filterSet[{{filter.number}}][filterIntentionIsToMatch]">Filter's Intention is to Match?</label></td>
             </tr>
         </table>

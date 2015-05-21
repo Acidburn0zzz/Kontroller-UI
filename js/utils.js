@@ -14,6 +14,12 @@ function disableTextInput(element) {
     element.className = "disabledTextInput";
 }
 
+function textInputKeypress(element, event) {
+    if (event.which == 13 || event.keyCode == 13) {
+        disableTextInput(element);
+    }
+}
+
 function enableCheckbox(element, divId) {
     var div = document.getElementById(divId);
     div.className = "enabledTextInput";

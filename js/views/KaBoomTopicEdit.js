@@ -4,7 +4,7 @@ Handlebars.registerHelper('drawMoveUp', function(filter) {
         disabled = ' disabled ';
     }
     return '<button value="' + filter.number + '" type="button" class="btn btn-default btn-sm filterUp" ' + disabled +'>' +
-        '<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Move Up</button>';
+        '<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>';
 });
 
 Handlebars.registerHelper('drawMoveDown', function(filter, numFilters) {
@@ -14,7 +14,6 @@ Handlebars.registerHelper('drawMoveDown', function(filter, numFilters) {
     }
     return '<button value="' + filter.number + '" type="button" class="btn btn-default btn-sm filterDown" ' + disabled +'>' +
         '<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>' +
-        ' Move Down' +
         '</button>';
 });
 
@@ -27,6 +26,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
         "click .filterDown": "filterDown",
         "click .cancel": "render",
         "click .save": "save",
+        "click .filterRemove": "filterRemove",
         "change input": "change"
     },
     initialize: function() {
@@ -90,6 +90,12 @@ var KaBoomTopicEditView = Backbone.View.extend({
         var index1 = event.target.value - 1;
         var index2 = event.target.value;
         this.swapFilters(index1, index2);
+        this.dirty = true;
+        this.render();
+    },
+    filterRemove: function(event) {
+        var index = event.target.value - 1;
+        this.getTopic().attributes.filterSet.splice(index, 1);
         this.dirty = true;
         this.render();
     },

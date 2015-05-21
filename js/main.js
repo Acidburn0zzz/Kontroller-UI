@@ -1,3 +1,9 @@
+Handlebars.registerPartial('editable-ro-checkbox',
+    $("#editable-ro-checkbox").html());
+
+Handlebars.registerPartial('editable-ro-text-input',
+    $("#editable-ro-text-input").html());
+
 Handlebars.registerPartial('kaboom-running-config-form-template',
     $("#kaboom-running-config-form-template").html());
 
