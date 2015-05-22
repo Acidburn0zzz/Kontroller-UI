@@ -50,4 +50,3 @@ function recursiveToJSON(json) {
     console.log("The recursive json is ", json);
     return json;
 }
-

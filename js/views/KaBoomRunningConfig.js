@@ -1,7 +1,3 @@
-var KaBoomConfigModel = Backbone.Model.extend({
-    url: "api/kaboom-config"
-});
-
 var KaBoomConfigView = Backbone.View.extend({
     menuItems: ['kaboom', 'kaboom-config'],
     template: Handlebars.compile($("#kaboom-config-template").html()),

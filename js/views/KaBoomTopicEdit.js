@@ -34,24 +34,29 @@ var KaBoomTopicEditView = Backbone.View.extend({
         if (!this.topicConfigs) {
             this.topicConfigs = new KaBoomTopicConfigCollection();
         }
-        this.currentTopicId = currentTopicId;
+        if (typeof currentTopicId !== "undefined") {
+            this.currentTopicId = currentTopicId;
+        }
         this.topicConfigs.fetch({success: function() {
             _self.dirty = false;
             _self.render();
         }});
         return this;
     },
-    render: function() {
-        //console.log(this.getTopic());
-        var _self = this;
+    render: function() {        
+        var _self = this;        
         $(this.el).html(this.template({
             topics: this.topicConfigs.models,
             currentTopic: _self.getTopic()
         }));
-        $("#" + this.currentTopicId).addClass("active");
+        if (this.currentTopicId) {
+            $("#" + this.currentTopicId).addClass("active");
+        }
     },
     getTopic: function() {
-        return this.topicConfigs.get(this.currentTopicId);
+        if (this.currentTopicId) {
+            return this.topicConfigs.get(this.currentTopicId);
+        }
     },
     change: function(event) {
         var target = event.target;

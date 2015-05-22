@@ -202,20 +202,23 @@
 </script>
 
 <script id="kaboom-topic-template" type="text/x-handlebars-template">
-    {{>kaboom-topic-list-template topics=topics}}
-    <div>Click any topic to the left to edit it's configuration</div>
+    {{>kaboom-topic-list-template topics=topics}}    
 </script>
 
 <script id="kaboom-topic-edit-template" type="text/x-handlebars-template">
-    {{>kaboom-topic-list-template topics=topics}}
-    {{>kaboom-topic-edit-form-template currentTopic.attributes}}
+    {{>kaboom-topic-list-template topics=topics}}    
+    {{#if currentTopic}}
+        {{>kaboom-topic-edit-form-template currentTopic.attributes}}
+    {{else}}
+        <div>Click any topic to the left to edit it's configuration</div>
+    {{/if}}
 </script>
 
 <script id="kaboom-topic-list-template" type="text/x-handlebars-template">
     <div class="col-sm-3">
         <div class="list-group">
-            {{#each topics}}
-            <a id="{{id}}" class="list-group-item" href='#kaboom-topics/{{id}}'>{{id}}</a>
+            {{#each topics}}            
+                <a id="{{id}}" class="list-group-item" href='#kaboom-topics/{{id}}'>{{id}}</a>
             {{/each}}
         </div>
     </div>
@@ -247,14 +250,34 @@
     </div>
 </script>
 
+<script>
+    Handlebars.registerHelper('drawMoveUp', function(filter) {
+        var disabled = '';
+        if(filter.number == 1) {
+            disabled = ' disabled ';
+        }
+        return '<button value="' + filter.number + '" type="button" class="btn btn-default btn-sm filterUp" ' + disabled +'>' +
+            '<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>';
+    });
+
+    Handlebars.registerHelper('drawMoveDown', function(filter, numFilters) {
+        var disabled = '';
+        if(filter.number == numFilters) {
+            disabled = ' disabled ';
+        }
+        return '<button value="' + filter.number + '" type="button" class="btn btn-default btn-sm filterDown" ' + disabled +'>' +
+            '<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>' +
+            '</button>';
+    });    
+</script>
+    
 <script id="topic-filter-mgmt-butons" type="text/x-handlebars-template">
     {{{drawMoveUp filter}}}
     {{{drawMoveDown filter numFilters}}}
-    <button value="{{filter.number}}" type="button" class="btn btn-default btn-sm filterRemove" >
+    <button value="{{filter.number}}" type="button" class="btn btn-default btn-sm filterRemove">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
     </button>
 </script>
-
 
 <script id="kaboom-topic-filter-form-template" type="text/x-handlebars-template">
     <hr>
@@ -291,14 +314,17 @@
 
 <div id="header-container"></div>
 <div class="container" id="content-container"></div>
-<script src="js/utils.js"></script>
+<script src="js/models/KaBoomTopicConfig.js"></script>
+<script src="js/models/KaBoomTopicFilter.js"></script>
+<script src="js/views/HomeView.js"></script>
 <script src="js/views/HomeView.js"></script>
 <script src="js/views/KaBoomView.js"></script>
 <script src="js/views/KafkaView.js"></script>
 <script src="js/views/KaBoomRunningConfig.js"></script>
 <script src="js/views/KaBoomTopicEdit.js"></script>
-<script src="js/views/KaBoomTopicList.js"></script>
 <script src="js/menu.js"></script>
+<script src="js/utils.js"></script>
 <script src="js/main.js"></script>
+    
 </body>
 </html>

@@ -90,7 +90,7 @@ var AppRouter = Backbone.Router.extend({
         '': 'homeRoute',
         'kaboom': 'kaboomRoute',
         'kaboom-config': 'kaboomConfigRoute',
-        'kaboom-topics': 'kaboomTopicListRoute',
+        'kaboom-topics': "kaboomTopicListRoute",
         "kaboom-topics/:id"	: "kaboomTopicEditRoute",
         'kafka': 'kafkaRoute'
     },
@@ -111,13 +111,13 @@ var AppRouter = Backbone.Router.extend({
     },
     kaboomTopicListRoute: function () {
         ViewManager.loadView("kaboom-topic-list-content", function() {
-            return new KaBoomTopicListView({el: "#kaboom-topic-list-content"});
+            return new KaBoomTopicEditView({el: "#kaboom-topic-list-content"});
         });
     },
     kaboomTopicEditRoute: function (id) {
         ViewManager.loadView("kaboom-topic-edit-content", function() {
             var _self = this;
-           _self.currentTopicId = id;
+            _self.currentTopicId = id;
             return new KaBoomTopicEditView({
                 el: "#kaboom-topic-edit-content",
                 currentTopicId: _self.currentTopicId
