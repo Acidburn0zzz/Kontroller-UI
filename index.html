@@ -156,10 +156,6 @@
             <td><label for="periodicHdfsFlushInterval">Periodic HDFS Flush Interval (ms)</label></td>
         </tr>
         <tr>
-            <td>{{>editable-ro-text-input id="periodicFileCloseInterval" value=periodicFileCloseInterval}}</td>
-            <td><label for="periodicFileCloseInterval">Periodic File Close Check Interval (ms)</label></td>
-        </tr>
-        <tr>
             <td>{{>editable-ro-text-input id="kaboomServerSleepDurationMs" value=kaboomServerSleepDurationMs}}</td>
             <td><label for="kaboomServerSleepDurationMs">KaBoom Server Sleep Duration (ms)</label></td>
         </tr>
@@ -174,6 +170,10 @@
         <tr>
             <td>{{>editable-ro-text-input id="kafkaReadyFlagFilename" value=kafkaReadyFlagFilename}}</td>
             <td><label for="kafkaReadyFlagFilename">Ready Flag Writer Flag FileName</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="workerSprintDurationSeconds" value=workerSprintDurationSeconds}}</td>
+            <td><label for="workerSprintDurationSeconds">Worker Sprint Duration (seconds)</label></td>
         </tr>
         <tr>
             <td>{{>editable-ro-checkbox id="sinkToHighWatermark" bool=sinkToHighWatermark}}</td>
@@ -236,6 +236,10 @@
             <tr>
                 <td>{{>editable-ro-text-input id="proxyUser" value=proxyUser}}</td>
                 <td><label for="proxyUser">Proxy User</label></td>
+            </tr>
+            <tr>
+                <td>{{>editable-ro-text-input id="defaultDirectory" value=defaultDirectory}}</td>
+                <td><label for="defaultDirectory">Default Directory</label></td>
             </tr>
         </table>
         <p>
@@ -314,6 +318,7 @@
 
 <div id="header-container"></div>
 <div class="container" id="content-container"></div>
+<script src="js/models/KaBoomConfig.js"></script>
 <script src="js/models/KaBoomTopicConfig.js"></script>
 <script src="js/models/KaBoomTopicFilter.js"></script>
 <script src="js/views/HomeView.js"></script>

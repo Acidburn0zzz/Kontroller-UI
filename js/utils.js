@@ -1,5 +1,3 @@
-// Useful for checking if callback functions are defined or not
-
 function isFunction(possibleFunction) {
     return typeof(possibleFunction) === typeof(Function);
 }
@@ -47,6 +45,6 @@ function recursiveToJSON(json) {
             json[attr] = json[attr].toJSON();
         }
     }
-    console.log("The recursive json is ", json);
     return json;
 }
+

@@ -1,22 +1,3 @@
-Handlebars.registerHelper('drawMoveUp', function(filter) {
-    var disabled = '';
-    if(filter.number == 1) {
-        disabled = ' disabled ';
-    }
-    return '<button value="' + filter.number + '" type="button" class="btn btn-default btn-sm filterUp" ' + disabled +'>' +
-        '<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>';
-});
-
-Handlebars.registerHelper('drawMoveDown', function(filter, numFilters) {
-    var disabled = '';
-    if(filter.number == numFilters) {
-        disabled = ' disabled ';
-    }
-    return '<button value="' + filter.number + '" type="button" class="btn btn-default btn-sm filterDown" ' + disabled +'>' +
-        '<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>' +
-        '</button>';
-});
-
 var KaBoomTopicEditView = Backbone.View.extend({
     menuItems: ['kaboom', 'kaboom-topics'],
     template: Handlebars.compile($("#kaboom-topic-edit-template").html()),
