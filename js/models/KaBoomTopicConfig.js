@@ -22,5 +22,4 @@ var KaBoomTopicConfigModel = Backbone.Model.extend({
 var KaBoomTopicConfigCollection = Backbone.Collection.extend({
     model: KaBoomTopicConfigModel,
     url: "api/kaboom-topic-config"
-
 });

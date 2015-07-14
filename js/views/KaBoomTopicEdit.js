@@ -2,13 +2,26 @@ var KaBoomTopicEditView = Backbone.View.extend({
     menuItems: ['kaboom', 'kaboom-topics'],
     template: Handlebars.compile($("#kaboom-topic-edit-template").html()),
     events: {
+        "click .newTopic": "newTopic",
         "click .addFilter": "addFilter",
         "click .filterUp": "filterUp",
         "click .filterDown": "filterDown",
-        "click .cancel": "render",
+        "click .cancel": "cancelEdit",
         "click .save": "save",
+        "click .destroy": "destroy",
         "click .filterRemove": "filterRemove",
         "change input": "change"
+    },
+    refreshCurrentTopic: function() {
+        if (typeof this.currentTopicId !== "undefined") {
+            this.currentTopic = this.topicConfigs.get(this.currentTopicId);
+            // Filter numbers are a construct of the UI only 
+            // the actual object model uses an array so 
+            // artifically populate the number attribute 
+            for (var i=0; i < this.currentTopic.attributes.filterSet.length; i++) {
+                this.currentTopic.attributes.filterSet[i].attributes.number = i + 1;
+            }
+        }
     },
     initialize: function() {
         var _self = this;
@@ -19,25 +32,35 @@ var KaBoomTopicEditView = Backbone.View.extend({
             this.currentTopicId = currentTopicId;
         }
         this.topicConfigs.fetch({success: function() {
+            _self.refreshCurrentTopic();
             _self.dirty = false;
             _self.render();
         }});
         return this;
     },
     render: function() {        
-        var _self = this;        
+        var _self = this;
         $(this.el).html(this.template({
             topics: this.topicConfigs.models,
             currentTopic: _self.getTopic()
         }));
         if (this.currentTopicId) {
             $("#" + this.currentTopicId).addClass("active");
-        }
+        }        
+    },
+    cancelEdit: function() {
+        delete currentTopic;
+        delete currentTopicId;
+        window.location.href = '#kaboom-topics';
     },
     getTopic: function() {
-        if (this.currentTopicId) {
-            return this.topicConfigs.get(this.currentTopicId);
+        if (this.currentTopic) {
+            return this.currentTopic;
         }
+    },
+    newTopic: function() {
+        this.currentTopic = new KaBoomTopicConfigModel();
+        this.render();
     },
     change: function(event) {
         var target = event.target;
@@ -61,9 +84,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
             change[target.name] = newValue;
             this.getTopic().set(change);
         }
-        //console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + newValue);
         this.dirty = true;
-        //this.render();
     },
     filterUp: function(event) {
         var index1 = event.target.value - 1;
@@ -81,7 +102,11 @@ var KaBoomTopicEditView = Backbone.View.extend({
     },
     filterRemove: function(event) {
         var index = event.target.value - 1;
-        this.getTopic().attributes.filterSet.splice(index, 1);
+        var filters = this.getTopic().attributes.filterSet;
+        filters.splice(index, 1);
+        for (var i=index; i < filters.length; i++) {            
+            filters[i].attributes.number--;
+        }
         this.dirty = true;
         this.render();
     },
@@ -102,15 +127,23 @@ var KaBoomTopicEditView = Backbone.View.extend({
         this.dirty = true;
         this.render();
     },
+    destroy: function() {
+        var _self = this;
+        this.getTopic().destroy().then(function() {
+            _self.cancelEdit();
+        }, function(obj) {
+            alert("There was a problem deleting the topic configuration");
+            console.log(obj);
+        });
+    },
     save: function() {
         var _self = this;
         this.getTopic().save().then(function() {
             _self.topicConfigs = new KaBoomTopicConfigCollection();
             _self.topicConfigs.fetch({success: function() {
-                console.log("we've fetched after save")
+                _self.refreshCurrentTopic();
                 _self.dirty = false;
                 _self.render();
-
             }});
         }, function(obj) {
             alert("There was a problem saving the topic configuration");
