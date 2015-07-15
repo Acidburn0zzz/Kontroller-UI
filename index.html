@@ -16,9 +16,15 @@
 </head>
 <body role="document" id="body">
 
+<script id="flashed-msg-template" type="text/x-handlebars-template">
+     <div class="alert alert-{{type}}" role="alert">
+        <strong>{{strong_message}}</strong> {{message}}
+      </div>    
+</script>
+    
 <script id="home-template" type="text/x-handlebars-template">
     <h1>Home Page</h1>
-    {{ greeting}}
+    {{greeting}}
 </script>
 
 <script id="kafka-template" type="text/x-handlebars-template">
@@ -336,11 +342,12 @@
 </script>
 
 <div id="header-container"></div>
+<div class="container" id="flash-messages"></div>
 <div class="container" id="content-container"></div>
 <script src="js/models/KaBoomConfig.js"></script>
 <script src="js/models/KaBoomTopicConfig.js"></script>
 <script src="js/models/KaBoomTopicFilter.js"></script>
-<script src="js/views/HomeView.js"></script>
+<script src="js/views/FlashView.js"></script>
 <script src="js/views/HomeView.js"></script>
 <script src="js/views/KaBoomView.js"></script>
 <script src="js/views/KafkaView.js"></script>
@@ -348,7 +355,6 @@
 <script src="js/views/KaBoomTopicEdit.js"></script>
 <script src="js/menu.js"></script>
 <script src="js/utils.js"></script>
-<script src="js/main.js"></script>
-    
+<script src="js/main.js"></script>    
 </body>
 </html>

@@ -51,7 +51,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
     cancelEdit: function() {
         delete currentTopic;
         delete currentTopicId;
-        window.location.href = '#kaboom-topics';
+        window.location.href = '#kaboom-topics';        
     },
     getTopic: function() {
         if (this.currentTopic) {
@@ -84,20 +84,20 @@ var KaBoomTopicEditView = Backbone.View.extend({
             change[target.name] = newValue;
             this.getTopic().set(change);
         }
-        this.dirty = true;
+        this.markDirty();
     },
     filterUp: function(event) {
         var index1 = event.target.value - 1;
         var index2 = event.target.value - 2;
         this.swapFilters(index1, index2);
-        this.dirty = true;
+        this.markDirty();
         this.render();
     },
     filterDown: function(event) {
         var index1 = event.target.value - 1;
         var index2 = event.target.value;
         this.swapFilters(index1, index2);
-        this.dirty = true;
+        this.markDirty();
         this.render();
     },
     filterRemove: function(event) {
@@ -107,7 +107,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
         for (var i=index; i < filters.length; i++) {            
             filters[i].attributes.number--;
         }
-        this.dirty = true;
+        this.markDirty();
         this.render();
     },
     swapFilters: function(index1, index2) {
@@ -124,7 +124,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
     addFilter: function() {
         this.getTopic().attributes.filterSet.push(
             new KaBoomTopicFilter({number: this.getTopic().attributes.filterSet.length + 1}));
-        this.dirty = true;
+        this.markDirty();
         this.render();
     },
     destroy: function() {
@@ -144,10 +144,15 @@ var KaBoomTopicEditView = Backbone.View.extend({
                 _self.refreshCurrentTopic();
                 _self.dirty = false;
                 _self.render();
+                Dispatcher.trigger("flash", "success", "KaBoom topic configuration saved.");                
             }});
         }, function(obj) {
             alert("There was a problem saving the topic configuration");
             console.log(obj);
         });
+    },
+    markDirty: function() {
+        this.dirty = true;
+        Dispatcher.trigger("flash", "warning", "You have unsaved changes");
     }
 });

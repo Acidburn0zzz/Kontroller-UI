@@ -43,6 +43,7 @@ Handlebars.registerHelper("debug", function(optionalValue) {
  * be able to achieve what we want
  */
 /*
+
 Backbone.Model.prototype.toJSON = function() {
     var json = _.clone(this.attributes);
     for(var attr in json) {
@@ -73,7 +74,8 @@ Backbone.Model.prototype.toJSON = function() {
 
 var ViewManager = {
     currentView: null,
-    loadView: function(newElementId, viewGenerator) {
+    loadView: function(newElementId, viewGenerator) {        
+        $("#flash-messages").html("");
         this.currentView != null && this.currentView.remove();
         var viewContainer = document.createElement("div");
         viewContainer.id = newElementId;
@@ -84,7 +86,7 @@ var ViewManager = {
     }
 }
 
-var AppRouter = Backbone.Router.extend({
+var AppRouter = Backbone.Router.extend({    
     currentView : null,
     routes: {
         '': 'homeRoute',
@@ -156,4 +158,6 @@ var AppRouter = Backbone.Router.extend({
 var appRouter = new AppRouter();
 $(window).on("hashchange", appRouter.hashChange);
 $(window).on("beforeunload", appRouter.beforeUnload);
+Dispatcher = _.extend({}, Backbone.Events);
+var flashView = new FlashMessage({el: "#flashed-msg-template"});
 Backbone.history.start();
