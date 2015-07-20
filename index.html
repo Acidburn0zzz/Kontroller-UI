@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kontroller - POC</title>
     <link href="css/main.css" rel="stylesheet">
+    <link href="css-lib/modalEffects.css" rel="stylesheet">
     <link href="css-lib/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css-lib/bootstrap.min.css" rel="stylesheet">
     <script src="js/lib/jquery-2.1.3.js"></script>
@@ -272,7 +273,7 @@
         {{#each filterSet}}
             {{>kaboom-topic-filter-form-template filter=attributes numFilters=../filterSet.length}}
         {{/each}}
-        <hr />
+        <hr />        
         <button class="save">Save</button> &nbsp;
         <button class="destroy">Destroy</button> &nbsp;
         <button class="cancel">Cancel</button>
@@ -340,10 +341,32 @@
         </table>
     </div>
 </script>
-
+    
+<script id="modal-confirm-action" type="text/x-handlebars-template">
+    <div class="md-modal md-effect-1" id="confirm-modal">
+        <div class="md-content">
+            <h3>{{title}}</h3>
+            <div>
+                <p>{{message}}</p>
+                <p>
+                    <button class="md-cancel md-button">{{cancelText}}</button>
+                    &nbsp;&nbsp;
+                    <button class="md-confirm md-button">{{confirmText}}</button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
+</script>
+    
+<div id="modal-container"></div>
 <div id="header-container"></div>
 <div class="container" id="flash-messages"></div>
 <div class="container" id="content-container"></div>
+
+<script src="js/lib/classie.js"></script>
+<script src="js/utils.js"></script>
+
 <script src="js/models/KaBoomConfig.js"></script>
 <script src="js/models/KaBoomTopicConfig.js"></script>
 <script src="js/models/KaBoomTopicFilter.js"></script>
@@ -354,7 +377,7 @@
 <script src="js/views/KaBoomRunningConfig.js"></script>
 <script src="js/views/KaBoomTopicEdit.js"></script>
 <script src="js/menu.js"></script>
-<script src="js/utils.js"></script>
 <script src="js/main.js"></script>    
+    
 </body>
 </html>

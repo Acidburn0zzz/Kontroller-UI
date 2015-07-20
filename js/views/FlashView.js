@@ -1,6 +1,5 @@
 var FlashMessage = Backbone.View.extend({
     initialize: function() {
-        alert("git");
         FlashMessage.template = Handlebars.compile($(this.el).html());
         FlashMessage.typeToStrongMap = {
             success: "Success", 

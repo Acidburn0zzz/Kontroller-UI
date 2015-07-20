@@ -22,3 +22,9 @@
 	border: solid 1px transparent;
 	background: transparent;
 }
+
+body {
+     height:100%;
+     margin:0;
+     padding:0;
+}

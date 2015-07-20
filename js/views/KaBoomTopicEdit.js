@@ -129,11 +129,17 @@ var KaBoomTopicEditView = Backbone.View.extend({
     },
     destroy: function() {
         var _self = this;
-        this.getTopic().destroy().then(function() {
-            _self.cancelEdit();
-        }, function(obj) {
-            alert("There was a problem deleting the topic configuration");
-            console.log(obj);
+        confirmAction("Permanently delete " + _self.currentTopic.id + "?", 
+                      "Once deleted, the topic configuration will be gone forever!",
+                      "CANCEL",
+                      "DELETE",
+                      function() {
+            _self.getTopic().destroy().then(function() {
+                _self.cancelEdit();
+            }, function(obj) {
+                alert("There was a problem deleting the topic configuration");
+                console.log(obj);
+            })
         });
     },
     save: function() {
@@ -141,10 +147,11 @@ var KaBoomTopicEditView = Backbone.View.extend({
         this.getTopic().save().then(function() {
             _self.topicConfigs = new KaBoomTopicConfigCollection();
             _self.topicConfigs.fetch({success: function() {
+                _self.currentTopicId = _self.currentTopic.id;
                 _self.refreshCurrentTopic();
                 _self.dirty = false;
                 _self.render();
-                Dispatcher.trigger("flash", "success", "KaBoom topic configuration saved.");                
+                Dispatcher.trigger("flash", "success", "KaBoom saved " + _self.currentTopic.id + " configuration");                
             }});
         }, function(obj) {
             alert("There was a problem saving the topic configuration");
