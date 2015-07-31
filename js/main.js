@@ -42,8 +42,8 @@ Handlebars.registerHelper("debug", function(optionalValue) {
  * the toJSON() function and add a little introspection then we should
  * be able to achieve what we want
  */
-/*
 
+/* Turns out this wasn't 100% neccessary aferall...
 Backbone.Model.prototype.toJSON = function() {
     var json = _.clone(this.attributes);
     for(var attr in json) {

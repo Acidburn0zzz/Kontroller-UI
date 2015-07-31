@@ -65,6 +65,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
     change: function(event) {
         var target = event.target;
         var newValue = target.value;
+        // Checkbox values are converted to boolean 
         if (target.type && target.type === 'checkbox') {
             if (target.checked) {
                 newValue = 'true';
@@ -72,6 +73,13 @@ var KaBoomTopicEditView = Backbone.View.extend({
                 newValue = 'false';
             }
         }
+        /*
+         * We know an attribute changed.  Update our model to reflect the new value
+         * with a simple set({field: value}) on the current topic.  Note however that
+         * filterSet's are a little special in that we need to change the attribute
+         * name that we're providing and we need to call set on the appropriate 
+         * filter in the filterSet array
+         */
         var change = {};
         var regex = /^filterSet\[(\d+)]\[(.*?)]/g
         var match = regex.exec(target.name);
