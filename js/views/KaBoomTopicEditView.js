@@ -1,6 +1,6 @@
 var KaBoomTopicEditView = Backbone.View.extend({
     menuItems: ['kaboom', 'kaboom-topics'],
-    template: Handlebars.compile($("#kaboom-topic-edit-template").html()),
+    template: Handlebars.compile($("#kaboom-editTopic-edit-template").html()),
     events: {
         "click .newTopic": "newTopic",
         "click .addFilter": "addFilter",
@@ -17,19 +17,23 @@ var KaBoomTopicEditView = Backbone.View.extend({
             this.currentTopic = this.topicConfigs.get(this.currentTopicId);
             // Filter numbers are a construct of the UI only 
             // the actual object model uses an array so 
-            // artifically populate the number attribute 
+            // artifically populate the number attribute             
             for (var i=0; i < this.currentTopic.attributes.filterSet.length; i++) {
                 this.currentTopic.attributes.filterSet[i].attributes.number = i + 1;
             }
         }
     },
     initialize: function() {
+        console.log("this.currentTopicId: ", this.currentTopicId, "this.currentTopic", this.currentTopic, "currentTopicId", currentTopicId);
         var _self = this;
         if (!this.topicConfigs) {
             this.topicConfigs = new KaBoomTopicConfigCollection();
         }
         if (typeof currentTopicId !== "undefined") {
             this.currentTopicId = currentTopicId;
+        } else {            
+            delete this.currentTopicId;
+            delete this.currentTopic;
         }
         this.topicConfigs.fetch({success: function() {
             _self.refreshCurrentTopic();
@@ -49,9 +53,9 @@ var KaBoomTopicEditView = Backbone.View.extend({
         }        
     },
     cancelEdit: function() {
-        delete currentTopic;
-        delete currentTopicId;
-        window.location.href = '#kaboom-topics';        
+        delete this.currentTopic;
+        delete this.currentTopicId;
+        window.location.href = '#kaboom-topic-configs';        
     },
     getTopic: function() {
         if (this.currentTopic) {
@@ -59,6 +63,10 @@ var KaBoomTopicEditView = Backbone.View.extend({
         }
     },
     newTopic: function() {
+        if (this.currentTopicId) {
+            $("#" + this.currentTopicId).removeClass("active");
+        }
+        delete this.currentTopicId
         this.currentTopic = new KaBoomTopicConfigModel();
         this.render();
     },

@@ -7,11 +7,14 @@ AppMenu.activeItems = [];
 
 AppMenu.menuItems = [
     {'link': "", 'title': "Kontroller"},
-    {'link': "kafka", 'title': "Kafka"},
+    {'link': "kafka", 'title': "Kafka", 'subMenu': [
+        {'link': "kafka-brokers", 'title': "Brokers"},
+        {'link': "kafka-topics", 'title': "Topics"}
+    ]},
     {'link': "kaboom", 'title': "KaBoom", 'subMenu': [
         {'link': "kaboom-config", 'title': "Running Config"},
-        {'link': "kaboom-topics", 'title': "Topic Config"},
-        {'link': "kaboom-assignments", 'title': "Assignments"}
+        {'link': "kaboom-topic-configs", 'title': "Topic Config"},
+        {'link': "kaboom-topics", 'title': "Assignments"}
     ]}
 ];
 

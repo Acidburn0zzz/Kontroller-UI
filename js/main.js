@@ -1,62 +1,3 @@
-Handlebars.registerPartial('editable-ro-checkbox',
-    $("#editable-ro-checkbox").html());
-
-Handlebars.registerPartial('editable-ro-text-input',
-    $("#editable-ro-text-input").html());
-
-Handlebars.registerPartial('kaboom-running-config-form-template',
-    $("#kaboom-running-config-form-template").html());
-
-Handlebars.registerPartial('kaboom-topic-list-template',
-    $("#kaboom-topic-list-template").html());
-
-Handlebars.registerPartial('kaboom-topic-edit-form-template',
-    $("#kaboom-topic-edit-form-template").html());
-
-Handlebars.registerPartial('kaboom-topic-filter-form-template',
-    $("#kaboom-topic-filter-form-template").html());
-
-Handlebars.registerPartial('topic-filter-mgmt-butons',
-    $("#topic-filter-mgmt-butons").html());
-
-Handlebars.registerHelper('checkedBoxFromBool', function(bool) {
-    if (bool == true) {
-        return "checked"
-    }
-});
-
-Handlebars.registerHelper("debug", function(optionalValue) {
-    console.log("Current Context");
-    console.log("===============");
-    console.log(this);
-    if (optionalValue) {
-        console.log("Value");
-        console.log("=====");
-        console.log(optionalValue);
-    }
-});
-
-/*
- * BackBone (by default doesn't inherently call toJSON() on attributes
- * that are other models.  I'm not sure why.. However, if we override
- * the toJSON() function and add a little introspection then we should
- * be able to achieve what we want
- */
-
-/* Turns out this wasn't 100% neccessary aferall...
-Backbone.Model.prototype.toJSON = function() {
-    var json = _.clone(this.attributes);
-    for(var attr in json) {
-        if((json[attr] instanceof Backbone.Model) || (json[attr] instanceof Backbone.Collection)) {
-            json[attr] = json[attr].toJSON();
-            console.log("we're overriding the toJSON on attr=" + attr);
-        }
-    }
-    console.log("here's the full JSON: " + json);
-    return json;
-};
-*/
-
 /*
  * The view manager has a single function, loadView(), that accepts an
  * element ID as well as a function that instantiates the view.  Note
@@ -68,7 +9,7 @@ Backbone.Model.prototype.toJSON = function() {
  * loadView() removes any existing views which un-registers any event
  * bindings then removes the view's element from the DOM.  It then
  * creates a new element inside the content div, sets the id for the
- * to-be-created view, and sets the current view to the value returned
+ * to-be-created view, and sets the current view to the value returne   d
  * by the viewGenerator function.
  */
 
@@ -92,9 +33,13 @@ var AppRouter = Backbone.Router.extend({
         '': 'homeRoute',
         'kaboom': 'kaboomRoute',
         'kaboom-config': 'kaboomConfigRoute',
-        'kaboom-topics': "kaboomTopicListRoute",
-        "kaboom-topics/:id"	: "kaboomTopicEditRoute",
-        'kafka': 'kafkaRoute'
+        'kaboom-topic-configs': "kaboomTopicConfigsRoute",
+        'kaboom-topic-configs/:id'	: "kaboomTopicEditRoute",
+        'kafka-brokers': 'kafkaBrokerListRoute',
+        'kafka-topics': 'kafkaTopicListRoute',
+        'kafka-topics/:id'	: "kafkaTopicShowRoute",
+        'kaboom-topics': 'kaboomTopicListRoute',
+        'kaboom-topics/:id'	: "kaboomTopicShowRoute",
     },
     homeRoute: function () {
         ViewManager.loadView("home-content", function() {
@@ -111,9 +56,12 @@ var AppRouter = Backbone.Router.extend({
             return new KaBoomConfigView({el: "#kaboom-config-content"});
         });
     },
-    kaboomTopicListRoute: function () {
+    kaboomTopicConfigsRoute: function () {
         ViewManager.loadView("kaboom-topic-list-content", function() {
-            return new KaBoomTopicEditView({el: "#kaboom-topic-list-content"});
+            currentTopicId = undefined;
+            return new KaBoomTopicEditView({
+                el: "#kaboom-topic-list-content"
+            });
         });
     },
     kaboomTopicEditRoute: function (id) {
@@ -126,9 +74,40 @@ var AppRouter = Backbone.Router.extend({
             });
         });
     },
-    kafkaRoute: function () {
-        ViewManager.loadView("kafka-content", function() {
-            return new KafkaView({el: "#kafka-content"});
+    kafkaBrokerListRoute: function () {
+        ViewManager.loadView("kafka-brokers-content", function() {
+            return new KafkaBrokerView({el: "#kafka-brokers-content"});
+        });
+    },
+    kafkaTopicListRoute: function () {
+        ViewManager.loadView("kafka-topics-content", function() {
+            return new KafkaTopicShowView({el: "#kafka-topics-content"});
+        });
+    },
+    kafkaTopicShowRoute: function (id) {
+        ViewManager.loadView("kafka-topics-content", function() {
+            var _self = this;
+            _self.currentTopicId = id;
+            return new KafkaTopicShowView({
+                el: "#kafka-topics-content",
+                currentTopicId: _self.currentTopicId
+            });
+        });
+    },
+    kaboomTopicListRoute: function () {
+        ViewManager.loadView("kaboom-topics-content", function() {
+            currentTopicId = undefined;
+            return new KaBoomTopicShowView({el: "#kaboom-topics-content"});
+        });
+    },
+    kaboomTopicShowRoute: function (id) {
+        ViewManager.loadView("kaboom-topics-content", function() {
+            var _self = this;
+            _self.currentTopicId = id;
+            return new KaBoomTopicShowView({
+                el: "#kaboom-topics-content",
+                currentTopicId: _self.currentTopicId
+            });
         });
     },
     hashChange : function(evt) {
