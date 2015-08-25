@@ -181,7 +181,7 @@
             {{#each partitions}}
             <tr>
                 <td>{{partitionId}}</td>
-                <td>{{leader}}</td>
+                <td>{{leaderBrokerId}}</td>
                 <td>{{errorCode}}</td>
                 <td>{{replicas}}</td>
                 <td>{{inSyncReplicas}}</td>
@@ -206,7 +206,7 @@
     <div class="col-sm-4">        
         <div class="list-group">
             {{#each kaboomTopics}}
-                <a id="{{attributes.topicName}}" class="list-group-item" href='#kaboom-topics/{{attributes.topicName}}'>{{attributes.topicName}} ({{attributes.partitionDetails.length}})</a>
+                <a id="{{attributes.kafkaTopic.name}}" class="list-group-item" href='#kaboom-topics/{{attributes.kafkaTopic.name}}'>{{attributes.kafkaTopic.name}} ({{attributes.partitions.length}})</a>
             {{/each}}
         </div>
     </div>
@@ -222,10 +222,10 @@
                 <th>Offset</th>
                 <th>Offset Timestamp</th>
             </tr>
-            {{#each partitionDetails}}
+            {{#each partitions}}
             <tr>
-                <td>{{partitionId}}</td>
-                <td>{{assignedKaBoomClientId}}</td>
+                <td>{{kafkaPartition.partitionId}}</td>
+                <td>{{assignedClient.id}}</td>
                 <td>{{offset}}</td>
                 <td>{{offsetTimestamp}}</td>
             </tr>
@@ -330,6 +330,7 @@
             <td>&nbsp;</td>
             <td>
                 <button class="save">Save</button> &nbsp;
+                <button class="revert">Revert to Default</button>
                 <button class="cancel">Cancel</button>
             </td>
         </tr>
@@ -489,7 +490,6 @@
 <script src="js/views/FlashView.js"></script>
 <script src="js/views/HomeView.js"></script>
 <script src="js/views/KafkaBrokerView.js"></script>
-<script src="js/views/KafkaTopicView.js"></script>
 <script src="js/views/KafkaTopicShowView.js"></script>
 <script src="js/views/KaBoomTopicShowView.js"></script>
 <script src="js/views/KaBoomRunningConfigView.js"></script>

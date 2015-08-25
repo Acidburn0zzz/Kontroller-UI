@@ -1,5 +1,5 @@
 var KaBoomTopicEditView = Backbone.View.extend({
-    menuItems: ['kaboom', 'kaboom-topics'],
+    menuItems: ['kaboom', 'kaboom-topic-configs'],
     template: Handlebars.compile($("#kaboom-editTopic-edit-template").html()),
     events: {
         "click .newTopic": "newTopic",
@@ -23,8 +23,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
             }
         }
     },
-    initialize: function() {
-        console.log("this.currentTopicId: ", this.currentTopicId, "this.currentTopic", this.currentTopic, "currentTopicId", currentTopicId);
+    initialize: function() {        
         var _self = this;
         if (!this.topicConfigs) {
             this.topicConfigs = new KaBoomTopicConfigCollection();

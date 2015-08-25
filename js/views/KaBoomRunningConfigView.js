@@ -3,7 +3,8 @@ var KaBoomConfigView = Backbone.View.extend({
     template: Handlebars.compile($("#kaboom-config-template").html()),
     events: {
         "click .save": "save",
-        "click .cancel": "render",
+        "click .revert": "revertToDefault",
+        "click .cancel": "cancel",
         "change input": "change"
     },
     initialize: function() {
@@ -35,15 +36,40 @@ var KaBoomConfigView = Backbone.View.extend({
         }
         console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + change[target.name]);
         this.model.set(change);
-        this.dirty = true;
+        this.markDirty();
+    },
+    cancel: function() {
+        Dispatcher.trigger("flash", "info", "Changes cancelled");
+        this.render();
     },
     save: function() {
         var _self = this;
         this.model.save().then(function() {
             _self.render();
+            Dispatcher.trigger("flash", "success", "Running configuraiton saved");
         }, function(obj) {
             alert("There was a problem saving the Running Configuration");
-            console.log(obj);
         });
-    }
+    },
+    revertToDefault: function() {
+        var _self = this;
+        confirmAction("Revert Running Config to Default?", 
+                      "Are you totally sure you want to permanently delete this Running Config and revert to default",
+                      "CANCEL",
+                      "Revert",
+                      function() {
+            _self.model.destroy().then(function() {
+                this.model = new KaBoomConfigModel();                
+                this.save();
+                Dispatcher.trigger("flash", "success", "Running configuration reverted to default");
+            }, function(obj) {
+                alert("There was a problem deleting the topic configuration");
+                console.log(obj);
+            })
+        });
+    },
+    markDirty: function() {
+        this.dirty = true;
+        Dispatcher.trigger("flash", "warning", "You have unsaved changes");
+    }    
 });

@@ -5,7 +5,7 @@ var KaBoomTopicShowView = Backbone.View.extend({
         if (typeof this.currentTopicId !== "undefined") {
             var _self = this;
             this.kaboomTopics.forEach(function(element) {
-                if (element.attributes.topicName == _self.currentTopicId) {
+                if (element.attributes.kafkaTopic.name == _self.currentTopicId) {
                     _self.currentTopic = element;
                 }
             });
