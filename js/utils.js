@@ -81,3 +81,9 @@ function confirmAction(title, message, cancelText, confirmText, actionCallBack) 
         actionCallBack();
     });
 }
+
+function getErrorMsgFromRespObj(obj) {
+    return "HTTP " + obj.responseJSON.code + " (" + obj.statusText + "): " + obj.responseJSON.message;
+}
+    
+    

@@ -16,7 +16,15 @@ var KaBoomTopicConfigModel = Backbone.Model.extend({
             }
         });
         return this;
+    },
+    defaults: {
+        "id": "New Topic",
+        "hdfsRootDir": "/path/to/files",
+        "proxyUser": "username",
+        "defaultDirectory": "data",        
+        "filterSet": []
     }
+
 });
 
 var KaBoomTopicConfigCollection = Backbone.Collection.extend({

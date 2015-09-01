@@ -91,22 +91,6 @@
                {{{checkedBoxFromBool bool }}}/>
     </div>
 </script>
-
-<script>
-    Handlebars.registerHelper('indexed-array-id', function(id, array, index) {        
-        var finalId = "";
-        if (array) {
-            if (index) {
-                finalId = finalId + array + "[" + index+"][" + id + "]";
-            } else {
-                finalId = finalId + array + "[" + id + "]";
-            }
-        } else {
-            finalId = finalId + id;
-        }
-        return finalId;
-    });
-</script>
     
 <script id="kafka-broker-list" type="text/x-handlebars-template">
     <h2 style="margin-top: 0px;">Kafka Brokers</h2>
@@ -213,21 +197,21 @@
 </script>
     
 <script id="kaboom-topic-showTopic-template" type="text/x-handlebars-template">
-    <div class="col-sm-5">
+    <div class="col-sm-7">
         <h2 style="margin-top: 0px;">Topic {{topicName}}</h2>
         <table class="table table-striped table-nonfluid">
             <tr>
                 <th>ID</th>
                 <th>Assigned Client</th>
                 <th>Offset</th>
-                <th>Offset Timestamp</th>
+                <th>Offset Timestamp</th>                
             </tr>
             {{#each partitions}}
             <tr>
                 <td>{{kafkaPartition.partitionId}}</td>
                 <td>{{assignedClient.id}}</td>
                 <td>{{offset}}</td>
-                <td>{{offsetTimestamp}}</td>
+                <td>{{offsetTimestamp}} &nbsp;({{dateFromTs offsetTimestamp}})</td>
             </tr>
             {{/each}}
         </table>
@@ -344,7 +328,7 @@
 <script id="kaboom-editTopic-edit-template" type="text/x-handlebars-template">
     {{>kaboom-editTopic-list-template topics=topics}}
     {{#if currentTopic}}
-        {{>kaboom-editTopic-edit-form-template currentTopic.attributes}}
+        {{>kaboom-editTopic-edit-form-template topic=currentTopic.attributes isNew=isNew}}
     {{else}}
         <div>Click any topic to the left to edit it's configuration</div>
     {{/if}}
@@ -363,32 +347,34 @@
     
 <script id="kaboom-editTopic-edit-form-template" type="text/x-handlebars-template">
     <div class="col-sm-5">
-        <h2 style="margin-top: 0px;">{{id}}</h2>
-        <p>Topic Config Version: <span class="badge">{{version}}</span></p>
-        <table class="table table-striped table-nonfluid">
+        <h2 style="margin-top: 0px;">{{topic.id}}</h2>
+        <p>Topic Config Version: <span class="badge">{{topic.version}}</span></p>
+        <table class="table table-striped table-nonfluid">            
+            {{#if isNew}}
+                <tr>
+                    <td>{{>editable-ro-text-input id="id" value=topic.id}}</td>
+                    <td><label for="id">New Topic Name</label></td>
+                </tr>
+            {{/if}}
             <tr>
-                <td>{{>editable-ro-text-input id="id" value=id}}</td>
-                <td><label for="id">Topic Name</label></td>
-            </tr>
-            <tr>
-                <td>{{>editable-ro-text-input id="hdfsRootDir" value=hdfsRootDir}}</td>
+                <td>{{>editable-ro-text-input id="hdfsRootDir" value=topic.hdfsRootDir}}</td>
                 <td><label for="hdfsRootDir">HDFS Root Directory</label></td>
             </tr>
             <tr>
-                <td>{{>editable-ro-text-input id="proxyUser" value=proxyUser}}</td>
+                <td>{{>editable-ro-text-input id="proxyUser" value=topic.proxyUser}}</td>
                 <td><label for="proxyUser">Proxy User</label></td>
             </tr>
             <tr>
-                <td>{{>editable-ro-text-input id="defaultDirectory" value=defaultDirectory}}</td>
+                <td>{{>editable-ro-text-input id="defaultDirectory" value=topic.defaultDirectory}}</td>
                 <td><label for="defaultDirectory">Default Directory</label></td>
             </tr>
         </table>
         <p>
-            There are <span class="badge">{{filterSet.length}}</span> filter(s) configured
+            There are <span class="badge">{{topic.filterSet.length}}</span> filter(s) configured
             <button type="button" class="btn btn-xs btn-primary addFilter">Add Filter</button>
         </p>        
-        {{#each filterSet}}
-            {{>kaboom-topic-filter-form-template filter=attributes numFilters=../filterSet.length}}
+        {{#each topic.filterSet}}
+            {{>kaboom-topic-filter-form-template filter=attributes numFilters=../topic.filterSet.length}}
         {{/each}}
         <hr />        
         <button class="save">Save</button> &nbsp;

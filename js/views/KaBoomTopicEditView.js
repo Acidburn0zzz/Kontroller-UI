@@ -41,11 +41,12 @@ var KaBoomTopicEditView = Backbone.View.extend({
         }});
         return this;
     },
-    render: function() {        
-        var _self = this;
+    render: function(isNew) {        
+        var _self = this;        
         $(this.el).html(this.template({
             topics: this.topicConfigs.models,
-            currentTopic: _self.getTopic()
+            currentTopic: _self.getTopic(),
+            isNew: isNew
         }));
         if (this.currentTopicId) {
             $("#" + this.currentTopicId).addClass("active");
@@ -61,13 +62,15 @@ var KaBoomTopicEditView = Backbone.View.extend({
             return this.currentTopic;
         }
     },
-    newTopic: function() {
+    newTopic: function() {        
         if (this.currentTopicId) {
             $("#" + this.currentTopicId).removeClass("active");
         }
         delete this.currentTopicId
         this.currentTopic = new KaBoomTopicConfigModel();
-        this.render();
+        
+        console.log("New topic: ", this.currentTopic);
+        this.render(true);
     },
     change: function(event) {
         var target = event.target;
@@ -159,6 +162,7 @@ var KaBoomTopicEditView = Backbone.View.extend({
     },
     save: function() {
         var _self = this;
+        console.log("Saving: ", this.getTopic().toJSON());
         this.getTopic().save().then(function() {
             _self.topicConfigs = new KaBoomTopicConfigCollection();
             _self.topicConfigs.fetch({success: function() {
@@ -168,8 +172,8 @@ var KaBoomTopicEditView = Backbone.View.extend({
                 _self.render();
                 Dispatcher.trigger("flash", "success", "KaBoom saved " + _self.currentTopic.id + " configuration");                
             }});
-        }, function(obj) {
-            alert("There was a problem saving the topic configuration");
+        }, function(obj) {            
+            Dispatcher.trigger("flash", "danger", getErrorMsgFromRespObj(obj));
             console.log(obj);
         });
     },

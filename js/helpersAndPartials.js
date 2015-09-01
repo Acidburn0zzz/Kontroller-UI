@@ -40,6 +40,25 @@ Handlebars.registerHelper('checkedBoxFromBool', function(bool) {
     }
 });
 
+Handlebars.registerHelper('dateFromTs', function(ts) {
+    var date = new Date(ts);
+    return date.toUTCString();
+});
+
+Handlebars.registerHelper('indexed-array-id', function(id, array, index) {        
+    var finalId = "";
+    if (array) {
+        if (index) {
+            finalId = finalId + array + "[" + index+"][" + id + "]";
+        } else {
+            finalId = finalId + array + "[" + id + "]";
+        }
+    } else {
+        finalId = finalId + id;
+    }
+    return finalId;
+});
+
 Handlebars.registerHelper("debug", function(optionalValue) {
     console.log("Current Context");
     console.log("===============");
