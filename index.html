@@ -231,10 +231,6 @@
 
     <table class="table table-striped table-nonfluid" width="">
         <tr>
-            <td>{{>editable-ro-text-input id="readyFlagPrevHoursCheck" value=readyFlagPrevHoursCheck}}</td>
-            <td><label for="readyFlagPrevHoursCheck">Num Previous Hours for Ready Flag Checks</label></td>
-        </tr>
-        <tr>
             <td>{{>editable-ro-text-input id="leaderSleepDurationMs" value=leaderSleepDurationMs}}</td>
             <td><label for="leaderSleepDurationMs">Leader Sleep Duration (ms)</label></td>
         </tr>
@@ -275,29 +271,13 @@
             <td><label for="forcedZkOffsetTsUpdateMs">Forced ZK Offset Timestamp Delay (ms)</label></td>
         </tr>
         <tr>
-            <td>{{>editable-ro-text-input id="kafkaReadyFlagFilename" value=kafkaReadyFlagFilename}}</td>
-            <td><label for="kafkaReadyFlagFilename">Ready Flag Writer Flag FileName</label></td>
-        </tr>
-        <tr>
             <td>{{>editable-ro-text-input id="workerSprintDurationSeconds" value=workerSprintDurationSeconds}}</td>
             <td><label for="workerSprintDurationSeconds">Worker Sprint Duration (seconds)</label></td>
-        </tr>
-        <tr>
-            <td>{{>editable-ro-text-input id="propagateReadyFlagFrequency" value=propagateReadyFlagFrequency}}</td>
-            <td><label for="propagateReadyFlagFrequency">Ready Flag Propgator Frequency (ms)</label></td>
         </tr>
         <tr>
             <td>{{>editable-ro-text-input id="newLeaderCalmDownDelay" value=newLeaderCalmDownDelay}}</td>
             <td><label for="newLeaderCalmDownDelay">New Leader Calm Down Delay (ms)</label></td>
         </tr>        
-        <tr>
-            <td>{{>editable-ro-text-input id="propateReadyFlagDelayBetweenPathsMs" value=propateReadyFlagDelayBetweenPathsMs}}</td>
-            <td><label for="propateReadyFlagDelayBetweenPathsMs">Ready Flag Propgator Path Delay (ms)</label></td>
-        </tr>        
-        <tr>
-            <td>{{>editable-ro-checkbox id="propagateReadyFlags" bool=propagateReadyFlags}}</td>
-            <td><label for="propagateReadyFlags">Propagate Ready Flags</label></td>
-        </tr>
         <tr>
             <td>{{>editable-ro-checkbox id="sinkToHighWatermark" bool=sinkToHighWatermark}}</td>
             <td><label for="sinkToHighWatermark">Sink to High Watermark</label></td>
