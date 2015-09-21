@@ -271,12 +271,16 @@
             <td><label for="forcedZkOffsetTsUpdateMs">Forced ZK Offset Timestamp Delay (ms)</label></td>
         </tr>
         <tr>
-            <td>{{>editable-ro-text-input id="workerSprintDurationSeconds" value=workerSprintDurationSeconds}}</td>
-            <td><label for="workerSprintDurationSeconds">Worker Sprint Duration (seconds)</label></td>
+            <td>{{>editable-ro-text-input id="workerShiftDurationSeconds" value=workerShiftDurationSeconds}}</td>
+            <td><label for="workerShiftDurationSeconds">Worker Shift Duration (seconds)</label></td>
         </tr>
         <tr>
             <td>{{>editable-ro-text-input id="newLeaderCalmDownDelay" value=newLeaderCalmDownDelay}}</td>
             <td><label for="newLeaderCalmDownDelay">New Leader Calm Down Delay (ms)</label></td>
+        </tr>        
+        <tr>
+            <td>{{>editable-ro-text-input id="assignmentLockTimeout" value=assignmentLockTimeout}}</td>
+            <td><label for="assignmentLockTimeout">Assignment Lock Timeout (ms)</label></td>
         </tr>        
         <tr>
             <td>{{>editable-ro-checkbox id="sinkToHighWatermark" bool=sinkToHighWatermark}}</td>
