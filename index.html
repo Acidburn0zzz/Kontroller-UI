@@ -281,7 +281,41 @@
         <tr>
             <td>{{>editable-ro-text-input id="assignmentLockTimeout" value=assignmentLockTimeout}}</td>
             <td><label for="assignmentLockTimeout">Assignment Lock Timeout (ms)</label></td>
-        </tr>        
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="maxOpenBoomFilesPerPartition" value=maxOpenBoomFilesPerPartition}}</td>
+            <td><label for="maxOpenBoomFilesPerPartition">Max Open Boom Files Per Partition</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="leaderNodeDisconnectionWaittimeSeconds" value=leaderNodeDisconnectionWaittimeSeconds}}</td>
+            <td><label for="leaderNodeDisconnectionWaittimeSeconds">Wait After Leader Finds Disconnected Assignee (sec)</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="nodeOpenFileWaittimeMs" value=nodeOpenFileWaittimeMs}}</td>
+            <td><label for="nodeOpenFileWaittimeMs">Sleep Between Open Boom File Checks (ms)</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="nodeOpenFileForceDeleteSeconds" value=nodeOpenFileForceDeleteSeconds}}</td>
+            <td><label for="nodeOpenFileForceDeleteSeconds">Wait Before Force-delete of Open Boom Files (sec)</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="skewedTsSecondsFuture" value=skewedTsSecondsFuture}}</td>
+            <td><label for="skewedTsSecondsFuture">Future Message Timing Before Considered Skewed (sec)</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="skewedTsSecondsPast" value=skewedTsSecondsPast}}</td>
+            <td><label for="skewedTsSecondsPast">Past Message Timing Before Considered Skewed (sec)</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="skewedTsDataDir" value=skewedTsDataDir}}</td>
+            <td><label for="skewedTsDataDir">Directory to Store Skewed Boom Files In</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-text-input id="skewedTsBoomFilenamePrefix" value=skewedTsBoomFilenamePrefix}}</td>
+            <td><label for="skewedTsBoomFilenamePrefix">Prefix for Skewed Boom Files</label></td>
+        </tr>
+
+	<!-- Checkboxes --->
         <tr>
             <td>{{>editable-ro-checkbox id="sinkToHighWatermark" bool=sinkToHighWatermark}}</td>
             <td><label for="sinkToHighWatermark">Sink to High Watermark</label></td>
@@ -297,6 +331,10 @@
         <tr>
             <td>{{>editable-ro-checkbox id="useNativeCompression" bool=useNativeCompression}}</td>
             <td><label for="useNativeCompression">Use Native Compression</label></td>
+        </tr>
+        <tr>
+            <td>{{>editable-ro-checkbox id="skewedTsDateDirToNow" bool=skewedTsDateDirToNow}}</td>
+            <td><label for="skewedTsDateDirToNow">Use now() for Date Dirs of Skewed Boom Files </label></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
