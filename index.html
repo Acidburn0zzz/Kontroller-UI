@@ -103,7 +103,9 @@
 
 <script id="kafka-broker-template" type="text/x-handlebars-template">
     <table class="table table-striped table-nonfluid">
-        <tr>
+        <!--
+	Deprecated until MetaData from Krackle supports these fields
+	<tr>
             <td>ID:</td>
             <td>{{id}}</td>
         </tr>
@@ -112,16 +114,17 @@
             <td>{{jmx_port}}</td>
         </tr>
         <tr>
+            <td>Version:</td>
+            <td>{{version}}</td>
+        </tr>
+        <tr>
             <td>Timestamp:</td>
             <td>{{timestamp}}</td>
         </tr>
+	-->
         <tr>
             <td>Hostname:</td>
             <td>{{host}}</td>
-        </tr>
-        <tr>
-            <td>Version:</td>
-            <td>{{version}}</td>
         </tr>
         <tr>
             <td>Port:</td>
@@ -156,21 +159,25 @@
             <tr>
                 <th>ID</th>
                 <th>Leader</th>
-                <th>Error Code</th>
+               	<!-- Deprecated until MetaData from Krackle supports these attributes 
+		<th>Error Code</th>
                 <th>Replicas</th>
                 <th>Min. ISR</th>
                 <th>Earliest Offset</th>
                 <th>Latest Offset</th>
+		-->
             </tr>
             {{#each partitions}}
             <tr>
                 <td>{{partitionId}}</td>
                 <td>{{leader.nodeId}}</td>
-                <td>{{errorCode}}</td>
+                <!-- Deprecated until MetaData from Krackle supports these attributes
+		<td>{{errorCode}}</td>
                 <td>{{replicas}}</td>
                 <td>{{inSyncReplicas}}</td>
                 <td>{{earliestOffset}}</td>
                 <td>{{latestOffset}}</td>
+		-->
             </tr>
             {{/each}}
         </table>
